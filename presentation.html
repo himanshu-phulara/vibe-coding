@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe Coding - Adobe GDC Presentation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #1a1a2e;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .presentation {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      padding: 60px 80px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Adobe red accent */
+    .accent { color: #ff0000; }
+    .accent-bg { background: linear-gradient(135deg, #ff0000, #cc0000); }
+
+    /* Title Slide */
+    .slide.title-slide {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+    }
+
+    .slide.title-slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255,0,0,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,0,0,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .title-slide h1 {
+      font-size: 5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .title-slide h1 .vibe {
+      background: linear-gradient(135deg, #ff0000 0%, #ff6b6b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .title-slide .subtitle {
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: #a0a0a0;
+      margin-bottom: 60px;
+    }
+
+    .title-slide .presenter {
+      font-size: 1.2rem;
+      color: #888;
+    }
+
+    .adobe-logo {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #ff0000;
+    }
+
+    /* Content Slides */
+    .slide-header {
+      margin-bottom: 50px;
+    }
+
+    .slide-header h2 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      color: #ffffff;
+      position: relative;
+      display: inline-block;
+    }
+
+    .slide-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: #ff0000;
+      border-radius: 2px;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .slide-content ul {
+      list-style: none;
+      font-size: 1.6rem;
+      line-height: 2.2;
+    }
+
+    .slide-content ul li {
+      padding-left: 40px;
+      position: relative;
+    }
+
+    .slide-content ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: #ff0000;
+      font-size: 1.2rem;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .column h3 {
+      font-size: 1.5rem;
+      color: #ff6b6b;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .highlight-box {
+      background: rgba(255, 0, 0, 0.1);
+      border-left: 4px solid #ff0000;
+      padding: 30px;
+      margin: 30px 0;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .highlight-box p {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: #e0e0e0;
+    }
+
+    .quote {
+      font-size: 2rem;
+      text-align: center;
+      padding: 60px;
+      color: #e0e0e0;
+      font-style: italic;
+    }
+
+    .quote-author {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #888;
+      font-style: normal;
+    }
+
+    .code-block {
+      background: #0d1117;
+      border-radius: 12px;
+      padding: 30px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin: 20px 0;
+      border: 1px solid #30363d;
+    }
+
+    .code-comment { color: #8b949e; }
+    .code-keyword { color: #ff7b72; }
+    .code-string { color: #a5d6ff; }
+    .code-function { color: #d2a8ff; }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .tool-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 30px 20px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      border-color: #ff0000;
+    }
+
+    .tool-card .icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .tool-card h4 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .tool-card p {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin: 50px 0;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 40px;
+      background: rgba(255,0,0,0.05);
+      border-radius: 16px;
+      border: 1px solid rgba(255,0,0,0.2);
+    }
+
+    .stat-card .number {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #ff0000;
+    }
+
+    .stat-card .label {
+      font-size: 1.2rem;
+      color: #a0a0a0;
+      margin-top: 10px;
+    }
+
+    .workflow-steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 50px 0;
+    }
+
+    .workflow-step {
+      text-align: center;
+      flex: 1;
+    }
+
+    .workflow-step .step-num {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto 20px;
+    }
+
+    .workflow-step h4 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .workflow-step p {
+      font-size: 1rem;
+      color: #888;
+    }
+
+    .workflow-arrow {
+      font-size: 2rem;
+      color: #ff0000;
+      padding: 0 20px;
+    }
+
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .pros, .cons {
+      padding: 30px;
+      border-radius: 16px;
+    }
+
+    .pros {
+      background: rgba(0, 200, 83, 0.1);
+      border: 1px solid rgba(0, 200, 83, 0.3);
+    }
+
+    .cons {
+      background: rgba(255, 152, 0, 0.1);
+      border: 1px solid rgba(255, 152, 0, 0.3);
+    }
+
+    .pros h3 { color: #00c853; }
+    .cons h3 { color: #ff9800; }
+
+    .pros ul li::before { color: #00c853; }
+    .cons ul li::before { color: #ff9800; }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 30px;
+      right: 40px;
+      display: flex;
+      gap: 15px;
+      z-index: 100;
+    }
+
+    .nav button {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .nav button:hover {
+      background: #ff0000;
+      border-color: #ff0000;
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 40px;
+      left: 40px;
+      font-size: 1rem;
+      color: #666;
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: #ff0000;
+      transition: width 0.3s;
+    }
+
+    /* Thank you slide */
+    .thank-you {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .thank-you h2 {
+      font-size: 4rem;
+      margin-bottom: 30px;
+    }
+
+    .thank-you p {
+      font-size: 1.5rem;
+      color: #888;
+    }
+
+    .contact-info {
+      margin-top: 50px;
+      padding: 30px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progress"></div>
+  
+  <div class="presentation">
+    <!-- Slide 1: Title -->
+    <div class="slide title-slide active">
+      <div class="adobe-logo">Adobe</div>
+      <h1><span class="vibe">Vibe</span> Coding</h1>
+      <p class="subtitle">The Future of Software Development with AI</p>
+      <p class="presenter">Adobe GDC Tech Talk • 2026</p>
+    </div>
+
+    <!-- Slide 2: Agenda -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Agenda</h2>
+      </div>
+      <div class="slide-content">
+        <ul>
+          <li>What is Vibe Coding?</li>
+          <li>The Origin Story</li>
+          <li>How It Works - Live Demo Mindset</li>
+          <li>Tools of the Trade</li>
+          <li>Benefits & Challenges</li>
+          <li>Best Practices for Adobe Engineers</li>
+          <li>Impact on Our Work</li>
+          <li>Q&A Discussion</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 3: What is Vibe Coding -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>What is Vibe Coding?</h2>
+      </div>
+      <div class="slide-content">
+        <div class="highlight-box">
+          <p>"Vibe Coding is a style of programming where you fully embrace AI assistance — describing what you want in natural language and letting the AI generate code, while you guide, iterate, and refine."</p>
+        </div>
+        <ul style="margin-top: 40px;">
+          <li>Conversational approach to software development</li>
+          <li>Human provides intent, context, and direction</li>
+          <li>AI handles syntax, boilerplate, and implementation details</li>
+          <li>Focus shifts from "how to write" to "what to build"</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 4: Origin Story -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>The Origin Story</h2>
+      </div>
+      <div class="slide-content">
+        <div class="quote">
+          "There's a new kind of coding I call 'vibe coding', where you fully give in to the vibes, embrace exponentials, and forget that the code even exists."
+          <div class="quote-author">— Andrej Karpathy, February 2025</div>
+        </div>
+        <ul style="margin-top: 30px;">
+          <li>Coined by former Tesla AI Director & OpenAI founding member</li>
+          <li>Sparked massive industry conversation</li>
+          <li>Represents paradigm shift in developer workflow</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 5: Traditional vs Vibe Coding -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Traditional vs Vibe Coding</h2>
+      </div>
+      <div class="slide-content">
+        <div class="two-column">
+          <div class="column">
+            <h3>Traditional Coding</h3>
+            <ul>
+              <li>Write every line manually</li>
+              <li>Memorize syntax & APIs</li>
+              <li>Search Stack Overflow</li>
+              <li>Copy-paste snippets</li>
+              <li>Debug line by line</li>
+              <li>Hours on boilerplate</li>
+            </ul>
+          </div>
+          <div class="column">
+            <h3>Vibe Coding</h3>
+            <ul>
+              <li>Describe what you need</li>
+              <li>AI knows the syntax</li>
+              <li>AI has context built-in</li>
+              <li>Generate custom code</li>
+              <li>AI helps debug & explain</li>
+              <li>Minutes on boilerplate</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: The Workflow -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>The Vibe Coding Workflow</h2>
+      </div>
+      <div class="slide-content">
+        <div class="workflow-steps">
+          <div class="workflow-step">
+            <div class="step-num">1</div>
+            <h4>Describe</h4>
+            <p>Explain what you want in plain English</p>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-num">2</div>
+            <h4>Generate</h4>
+            <p>AI produces code based on context</p>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-num">3</div>
+            <h4>Review</h4>
+            <p>Evaluate, understand, verify</p>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-num">4</div>
+            <h4>Iterate</h4>
+            <p>Refine with follow-up prompts</p>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <p>Key Insight: You're still the architect. AI is your highly capable assistant who can write code fast but needs your judgment and domain expertise.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: Tools -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Tools of the Trade</h2>
+      </div>
+      <div class="slide-content">
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="icon">⚡</div>
+            <h4>Cursor</h4>
+            <p>AI-first code editor with chat & composer</p>
+          </div>
+          <div class="tool-card">
+            <div class="icon">🤖</div>
+            <h4>GitHub Copilot</h4>
+            <p>Inline suggestions & chat in VS Code</p>
+          </div>
+          <div class="tool-card">
+            <div class="icon">🧠</div>
+            <h4>Claude / ChatGPT</h4>
+            <p>Advanced reasoning & code generation</p>
+          </div>
+          <div class="tool-card">
+            <div class="icon">🔮</div>
+            <h4>Windsurf</h4>
+            <p>Agentic IDE with Cascade flows</p>
+          </div>
+          <div class="tool-card">
+            <div class="icon">📝</div>
+            <h4>Replit Agent</h4>
+            <p>Full-stack app generation</p>
+          </div>
+          <div class="tool-card">
+            <div class="icon">🎨</div>
+            <h4>v0 by Vercel</h4>
+            <p>AI UI component generator</p>
+          </div>
+          <div class="tool-card">
+            <div class="icon">⚙️</div>
+            <h4>Aider</h4>
+            <p>Terminal-based AI pair programmer</p>
+          </div>
+          <div class="tool-card">
+            <div class="icon">🚀</div>
+            <h4>Bolt.new</h4>
+            <p>AI full-stack app builder</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8: Example Prompt -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Vibe Coding in Action</h2>
+      </div>
+      <div class="slide-content">
+        <p style="font-size: 1.3rem; color: #888; margin-bottom: 20px;">A typical prompt to the AI:</p>
+        <div class="code-block">
+          <span class="code-comment">// Human prompt:</span><br><br>
+          <span class="code-string">"Create a React component that displays a list of users fetched from an API. Include loading and error states, use TypeScript, and add a search filter. Make it accessible with proper ARIA labels."</span>
+        </div>
+        <p style="font-size: 1.3rem; color: #888; margin: 30px 0 20px;">AI generates complete, production-ready code with:</p>
+        <ul>
+          <li>TypeScript interfaces for type safety</li>
+          <li>useState & useEffect hooks properly configured</li>
+          <li>Loading spinner and error handling</li>
+          <li>Debounced search functionality</li>
+          <li>ARIA labels and keyboard navigation</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 9: Benefits -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Benefits of Vibe Coding</h2>
+      </div>
+      <div class="slide-content">
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="number">10x</div>
+            <div class="label">Faster Prototyping</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">55%</div>
+            <div class="label">Productivity Increase*</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">↓</div>
+            <div class="label">Context Switching</div>
+          </div>
+        </div>
+        <ul>
+          <li>Accelerates learning new languages/frameworks</li>
+          <li>Reduces time spent on boilerplate code</li>
+          <li>Enables rapid experimentation and iteration</li>
+          <li>Democratizes coding for non-experts</li>
+          <li>Acts as an always-available mentor</li>
+        </ul>
+        <p style="font-size: 0.9rem; color: #666; margin-top: 30px;">*GitHub Copilot Research Study, 2024</p>
+      </div>
+    </div>
+
+    <!-- Slide 10: Challenges -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Challenges & Considerations</h2>
+      </div>
+      <div class="slide-content">
+        <div class="pros-cons">
+          <div class="cons">
+            <h3>⚠️ Watch Out For</h3>
+            <ul>
+              <li>AI hallucinations - confident but wrong</li>
+              <li>Security vulnerabilities in generated code</li>
+              <li>Over-reliance reducing core skills</li>
+              <li>Context limits with large codebases</li>
+              <li>Intellectual property concerns</li>
+              <li>Inconsistent code style</li>
+            </ul>
+          </div>
+          <div class="pros">
+            <h3>✅ Mitigations</h3>
+            <ul>
+              <li>Always review & understand generated code</li>
+              <li>Run security scans & tests</li>
+              <li>Keep fundamentals sharp</li>
+              <li>Provide clear, focused context</li>
+              <li>Use enterprise-approved tools</li>
+              <li>Establish team conventions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 11: Best Practices -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Best Practices for Adobe Engineers</h2>
+      </div>
+      <div class="slide-content">
+        <ul>
+          <li><strong>Be Specific:</strong> "Create a React hook for debounced search" > "Make search work"</li>
+          <li><strong>Provide Context:</strong> Share relevant code, types, and constraints</li>
+          <li><strong>Iterate Incrementally:</strong> Build complex features in smaller steps</li>
+          <li><strong>Verify Everything:</strong> Test generated code, check edge cases</li>
+          <li><strong>Learn From Output:</strong> Understand why the AI made certain choices</li>
+          <li><strong>Know When NOT to Use:</strong> Security-critical code, proprietary algorithms</li>
+          <li><strong>Document Your Prompts:</strong> Good prompts are reusable team assets</li>
+        </ul>
+        <div class="highlight-box">
+          <p>Golden Rule: AI is a power tool, not autopilot. You're responsible for what ships.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 12: Impact at Adobe -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Impact on Adobe Engineering</h2>
+      </div>
+      <div class="slide-content">
+        <div class="two-column">
+          <div class="column">
+            <h3>Current Opportunities</h3>
+            <ul>
+              <li>Faster feature development</li>
+              <li>Better documentation generation</li>
+              <li>Efficient code reviews</li>
+              <li>Quick prototyping for PM demos</li>
+              <li>Test case generation</li>
+              <li>Legacy code understanding</li>
+            </ul>
+          </div>
+          <div class="column">
+            <h3>Future Implications</h3>
+            <ul>
+              <li>Shift from "coder" to "architect"</li>
+              <li>Higher-level problem solving</li>
+              <li>More time for innovation</li>
+              <li>Evolving interview practices</li>
+              <li>New collaboration patterns</li>
+              <li>AI-augmented code reviews</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 13: The Human Element -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>The Human Element Remains Critical</h2>
+      </div>
+      <div class="slide-content">
+        <div class="quote" style="font-size: 1.6rem;">
+          "AI won't replace developers. Developers who use AI will replace developers who don't."
+        </div>
+        <ul style="margin-top: 40px;">
+          <li><strong>System Design:</strong> Architecture decisions require human judgment</li>
+          <li><strong>Domain Knowledge:</strong> Understanding Adobe products & customer needs</li>
+          <li><strong>Code Review:</strong> Catching subtle bugs and security issues</li>
+          <li><strong>Creativity:</strong> Novel solutions to unique problems</li>
+          <li><strong>Communication:</strong> Working with PMs, designers, stakeholders</li>
+          <li><strong>Accountability:</strong> You own the code that ships</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 14: Getting Started -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Getting Started Tomorrow</h2>
+      </div>
+      <div class="slide-content">
+        <div class="workflow-steps" style="margin-bottom: 40px;">
+          <div class="workflow-step">
+            <div class="step-num">1</div>
+            <h4>Pick a Tool</h4>
+            <p>Cursor, Copilot, or Claude</p>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-num">2</div>
+            <h4>Start Small</h4>
+            <p>Unit tests, docs, utilities</p>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-num">3</div>
+            <h4>Build Intuition</h4>
+            <p>Learn what works & doesn't</p>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-num">4</div>
+            <h4>Share Learnings</h4>
+            <p>Help the team level up</p>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <p>Challenge: Try vibe coding for your next task. Generate tests, write documentation, or scaffold a new component. Compare time spent vs. traditional approach.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 15: Key Takeaways -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Key Takeaways</h2>
+      </div>
+      <div class="slide-content">
+        <ul style="font-size: 1.8rem; line-height: 2.5;">
+          <li>Vibe coding is a paradigm shift, not just a tool</li>
+          <li>AI amplifies your capabilities — you still drive</li>
+          <li>Review, understand, and verify everything</li>
+          <li>Start small, build intuition, share with team</li>
+          <li>The future belongs to AI-augmented engineers</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 16: Q&A -->
+    <div class="slide thank-you">
+      <h2>Questions & Discussion</h2>
+      <p>Let's explore this together</p>
+      <div class="contact-info">
+        <p style="font-size: 1.2rem; color: #888;">Thank you for your time!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-counter">
+    <span id="currentSlide">1</span> / <span id="totalSlides">16</span>
+  </div>
+
+  <div class="nav">
+    <button onclick="prevSlide()">← Previous</button>
+    <button onclick="nextSlide()">Next →</button>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    
+    document.getElementById('totalSlides').textContent = totalSlides;
+
+    function showSlide(n) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (n + totalSlides) % totalSlides;
+      slides[currentSlide].classList.add('active');
+      document.getElementById('currentSlide').textContent = currentSlide + 1;
+      document.getElementById('progress').style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+    }
+
+    function nextSlide() { showSlide(currentSlide + 1); }
+    function prevSlide() { showSlide(currentSlide - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { nextSlide(); e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { prevSlide(); e.preventDefault(); }
+      if (e.key === 'Home') { showSlide(0); }
+      if (e.key === 'End') { showSlide(totalSlides - 1); }
+    });
+
+    // Initialize
+    showSlide(0);
+  </script>
+</body>
+</html>
+
