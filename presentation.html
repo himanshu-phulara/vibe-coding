@@ -623,7 +623,56 @@
       </div>
     </div>
 
-    <!-- Slide 9: Benefits -->
+    <!-- Slide 9: Live Example - Prompt & Output -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Live Example: From Prompt to Code</h2>
+      </div>
+      <div class="slide-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+        <div>
+          <h3 style="color: #ff6b6b; margin-bottom: 15px;">The Prompt (in Cursor)</h3>
+          <div class="code-block" style="font-size: 0.95rem; padding: 20px;">
+            <span class="code-string">"Create a password strength checker function in TypeScript. It should return weak/medium/strong based on: length (min 8), uppercase, lowercase, numbers, and special characters. Include unit tests."</span>
+          </div>
+          
+          <h3 style="color: #a5d6ff; margin: 25px 0 15px;">Why This Prompt Works</h3>
+          <ul style="font-size: 1rem;">
+            <li><strong>Language specified</strong> → TypeScript</li>
+            <li><strong>Clear requirements</strong> → 5 specific criteria</li>
+            <li><strong>Output format</strong> → weak/medium/strong</li>
+            <li><strong>Extras requested</strong> → unit tests included</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 style="color: #00c853; margin-bottom: 15px;">Generated Output</h3>
+          <div class="code-block" style="font-size: 0.75rem; padding: 15px; line-height: 1.5;">
+<span class="code-keyword">type</span> Strength = <span class="code-string">'weak'</span> | <span class="code-string">'medium'</span> | <span class="code-string">'strong'</span>;
+
+<span class="code-keyword">export function</span> <span class="code-function">checkPasswordStrength</span>(
+  password: <span class="code-keyword">string</span>
+): Strength {
+  <span class="code-keyword">let</span> score = <span class="code-keyword">0</span>;
+  
+  <span class="code-keyword">if</span> (password.length >= <span class="code-keyword">8</span>) score++;
+  <span class="code-keyword">if</span> (<span class="code-string">/[A-Z]/</span>.test(password)) score++;
+  <span class="code-keyword">if</span> (<span class="code-string">/[a-z]/</span>.test(password)) score++;
+  <span class="code-keyword">if</span> (<span class="code-string">/[0-9]/</span>.test(password)) score++;
+  <span class="code-keyword">if</span> (<span class="code-string">/[^A-Za-z0-9]/</span>.test(password)) score++;
+  
+  <span class="code-keyword">if</span> (score <= <span class="code-keyword">2</span>) <span class="code-keyword">return</span> <span class="code-string">'weak'</span>;
+  <span class="code-keyword">if</span> (score <= <span class="code-keyword">4</span>) <span class="code-keyword">return</span> <span class="code-string">'medium'</span>;
+  <span class="code-keyword">return</span> <span class="code-string">'strong'</span>;
+}
+          </div>
+          <p style="color: #888; font-size: 0.9rem; margin-top: 15px; text-align: center;">
+            ✓ Type-safe &nbsp; ✓ Clean logic &nbsp; ✓ Ready to use
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 10: Benefits (was 9) -->
     <div class="slide">
       <div class="slide-header">
         <h2>Benefits of Vibe Coding</h2>
