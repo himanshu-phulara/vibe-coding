@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vibe Coding - Adobe GDC Presentation</title>
+  <title>Vibe Coding & The Tech Behind - Adobe GDC Presentation</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * {
@@ -421,7 +421,7 @@
     <div class="slide title-slide active">
       <div class="adobe-logo">Adobe</div>
       <h1><span class="vibe">Vibe</span> Coding</h1>
-      <p class="subtitle">The Future of Software Development with AI</p>
+      <p class="subtitle">& The Tech Behind It</p>
       <p class="presenter" style="margin-bottom: 20px;">Adobe GDC Tech Talk • 2026</p>
       <div style="display: flex; gap: 40px; margin-top: 20px;">
         <p style="font-size: 1.1rem; color: #a0a0a0;"><strong style="color: #fff;">Himanshu Phulara</strong><br>Technical Architect</p>
@@ -438,11 +438,11 @@
         <ul>
           <li>What is Vibe Coding?</li>
           <li>The Origin Story</li>
-          <li>How It Works - Live Demo Mindset</li>
+          <li>How It Works - The Workflow</li>
           <li>Tools of the Trade</li>
-          <li>Benefits & Challenges</li>
-          <li>Best Practices for Adobe Engineers</li>
-          <li>Impact on Our Work</li>
+          <li><strong style="color: #ff6b6b;">Under the Hood: How Cursor Works</strong></li>
+          <li><strong style="color: #ff6b6b;">The Tech Stack (LLMs, RAG, Embeddings)</strong></li>
+          <li>Benefits, Challenges & Best Practices</li>
           <li>Q&A Discussion</li>
         </ul>
       </div>
@@ -589,7 +589,117 @@
       </div>
     </div>
 
-    <!-- Slide 8: Live Example - Prompt & Output -->
+    <!-- Slide 8: Under the Hood - Architecture -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Under the Hood: How Cursor Works</h2>
+        <p style="color: #888; font-size: 1.1rem; margin-top: 10px;">The architecture behind AI-assisted coding</p>
+      </div>
+      <div class="slide-content">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0;">
+          <!-- Architecture Flow -->
+          <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap; justify-content: center;">
+            <div style="background: rgba(165,214,255,0.15); padding: 20px 25px; border-radius: 12px; border: 2px solid #a5d6ff; text-align: center;">
+              <div style="font-size: 1.8rem;">👨‍💻</div>
+              <div style="font-weight: 600; margin-top: 8px;">Your Code</div>
+              <div style="font-size: 0.8rem; color: #888;">+ Prompt</div>
+            </div>
+            <div style="font-size: 1.5rem; color: #ff6b6b;">→</div>
+            <div style="background: rgba(255,107,107,0.15); padding: 20px 25px; border-radius: 12px; border: 2px solid #ff6b6b; text-align: center;">
+              <div style="font-size: 1.8rem;">🔍</div>
+              <div style="font-weight: 600; margin-top: 8px;">Context Engine</div>
+              <div style="font-size: 0.8rem; color: #888;">RAG + Embeddings</div>
+            </div>
+            <div style="font-size: 1.5rem; color: #ff6b6b;">→</div>
+            <div style="background: rgba(210,168,255,0.15); padding: 20px 25px; border-radius: 12px; border: 2px solid #d2a8ff; text-align: center;">
+              <div style="font-size: 1.8rem;">🧠</div>
+              <div style="font-weight: 600; margin-top: 8px;">LLM API</div>
+              <div style="font-size: 0.8rem; color: #888;">GPT-4 / Claude</div>
+            </div>
+            <div style="font-size: 1.5rem; color: #ff6b6b;">→</div>
+            <div style="background: rgba(0,200,83,0.15); padding: 20px 25px; border-radius: 12px; border: 2px solid #00c853; text-align: center;">
+              <div style="font-size: 1.8rem;">✨</div>
+              <div style="font-weight: 600; margin-top: 8px;">Generated Code</div>
+              <div style="font-size: 0.8rem; color: #888;">+ Diff View</div>
+            </div>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 30px;">
+          <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+            <h4 style="color: #a5d6ff; margin-bottom: 10px;">1. Context Gathering</h4>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+              <li>Current file + cursor position</li>
+              <li>Open tabs & recent files</li>
+              <li>Codebase index (embeddings)</li>
+              <li>Git history & diff context</li>
+            </ul>
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+            <h4 style="color: #d2a8ff; margin-bottom: 10px;">2. Prompt Construction</h4>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+              <li>System prompt (rules, format)</li>
+              <li>Retrieved code snippets</li>
+              <li>User's natural language query</li>
+              <li>Token optimization (~128K limit)</li>
+            </ul>
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+            <h4 style="color: #00c853; margin-bottom: 10px;">3. Response Handling</h4>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+              <li>Stream tokens in real-time</li>
+              <li>Parse code blocks & diffs</li>
+              <li>Apply changes to editor</li>
+              <li>Run linting & validation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 9: Key Technologies -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>The Tech Stack Behind Vibe Coding</h2>
+      </div>
+      <div class="slide-content">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+          <div style="background: rgba(255,107,107,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,107,107,0.3);">
+            <h3 style="color: #ff6b6b; margin-bottom: 15px;">🧠 Large Language Models</h3>
+            <p style="color: #ccc; line-height: 1.7;">Foundation models (GPT-4, Claude, Gemini) trained on billions of code samples. They predict the next token based on context — essentially very sophisticated autocomplete.</p>
+            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
+              <span class="code-comment">Input:</span> <span class="code-string">"function add(a, b) { return"</span><br>
+              <span class="code-comment">Model predicts:</span> <span class="code-keyword">a + b; }</span>
+            </div>
+          </div>
+          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.3);">
+            <h3 style="color: #a5d6ff; margin-bottom: 15px;">📊 Embeddings & Vector Search</h3>
+            <p style="color: #ccc; line-height: 1.7;">Code is converted to numerical vectors capturing semantic meaning. Similar code clusters together, enabling "find code that does X" without keyword matching.</p>
+            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
+              <span class="code-string">"parseJSON"</span> → <span class="code-keyword">[0.2, -0.5, 0.8, ...]</span><br>
+              <span class="code-string">"decodeJSON"</span> → <span class="code-keyword">[0.21, -0.48, 0.79, ...]</span> <span class="code-comment">// Similar!</span>
+            </div>
+          </div>
+          <div style="background: rgba(0,200,83,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(0,200,83,0.3);">
+            <h3 style="color: #00c853; margin-bottom: 15px;">🔄 RAG (Retrieval-Augmented Generation)</h3>
+            <p style="color: #ccc; line-height: 1.7;">Instead of fine-tuning, RAG retrieves relevant code from YOUR codebase at query time and injects it into the prompt. This is how Cursor "knows" your patterns.</p>
+            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
+              <span class="code-comment">Query:</span> <span class="code-string">"Add error handling"</span><br>
+              <span class="code-comment">RAG finds:</span> <span class="code-keyword">your existing ErrorBoundary.tsx</span>
+            </div>
+          </div>
+          <div style="background: rgba(210,168,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(210,168,255,0.3);">
+            <h3 style="color: #d2a8ff; margin-bottom: 15px;">🌊 Streaming & Token Windows</h3>
+            <p style="color: #ccc; line-height: 1.7;">Responses stream token-by-token for instant feedback. Context windows (8K → 128K → 1M) determine how much code the model can "see" at once.</p>
+            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
+              <span class="code-comment">GPT-4:</span> <span class="code-keyword">128K tokens</span> <span class="code-comment">≈ 100K words</span><br>
+              <span class="code-comment">Claude:</span> <span class="code-keyword">200K tokens</span> <span class="code-comment">≈ 150K words</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 10: Live Example - Prompt & Output -->
     <div class="slide">
       <div class="slide-header">
         <h2>Live Example: From Prompt to Code</h2>
@@ -919,7 +1029,7 @@
   </div>
 
   <div class="slide-counter">
-    <span id="currentSlide">1</span> / <span id="totalSlides">17</span>
+    <span id="currentSlide">1</span> / <span id="totalSlides">19</span>
   </div>
 
   <div class="nav">
