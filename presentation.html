@@ -422,7 +422,11 @@
       <div class="adobe-logo">Adobe</div>
       <h1><span class="vibe">Vibe</span> Coding</h1>
       <p class="subtitle">The Future of Software Development with AI</p>
-      <p class="presenter">Adobe GDC Tech Talk • 2026</p>
+      <p class="presenter" style="margin-bottom: 20px;">Adobe GDC Tech Talk • 2026</p>
+      <div style="display: flex; gap: 40px; margin-top: 20px;">
+        <p style="font-size: 1.1rem; color: #a0a0a0;"><strong style="color: #fff;">Himanshu Phulara</strong><br>Technical Architect</p>
+        <p style="font-size: 1.1rem; color: #a0a0a0;"><strong style="color: #fff;">Mohit Malik</strong><br>Technical Architect</p>
+      </div>
     </div>
 
     <!-- Slide 2: Agenda -->
@@ -554,76 +558,38 @@
     <div class="slide">
       <div class="slide-header">
         <h2>Tools of the Trade</h2>
+        <p style="color: #888; font-size: 1.1rem; margin-top: 10px;">Recommended for Adobe engineers</p>
       </div>
       <div class="slide-content">
-        <div class="tools-grid">
+        <div class="tools-grid" style="grid-template-columns: repeat(4, 1fr); max-width: 1000px; margin: 40px auto;">
           <div class="tool-card">
             <div class="icon">⚡</div>
             <h4>Cursor</h4>
-            <p>AI-first code editor with chat & composer</p>
+            <p>AI-first code editor with chat, composer & codebase awareness</p>
           </div>
           <div class="tool-card">
             <div class="icon">🤖</div>
             <h4>GitHub Copilot</h4>
-            <p>Inline suggestions & chat in VS Code</p>
+            <p>Inline suggestions & chat integrated in VS Code</p>
           </div>
           <div class="tool-card">
             <div class="icon">🧠</div>
             <h4>Claude / ChatGPT</h4>
-            <p>Advanced reasoning & code generation</p>
+            <p>Advanced reasoning for complex problem solving</p>
           </div>
           <div class="tool-card">
             <div class="icon">🔮</div>
             <h4>Windsurf</h4>
-            <p>Agentic IDE with Cascade flows</p>
+            <p>Agentic IDE with autonomous coding flows</p>
           </div>
-          <div class="tool-card">
-            <div class="icon">📝</div>
-            <h4>Replit Agent</h4>
-            <p>Full-stack app generation</p>
-          </div>
-          <div class="tool-card">
-            <div class="icon">🎨</div>
-            <h4>v0 by Vercel</h4>
-            <p>AI UI component generator</p>
-          </div>
-          <div class="tool-card">
-            <div class="icon">⚙️</div>
-            <h4>Aider</h4>
-            <p>Terminal-based AI pair programmer</p>
-          </div>
-          <div class="tool-card">
-            <div class="icon">🚀</div>
-            <h4>Bolt.new</h4>
-            <p>AI full-stack app builder</p>
-          </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 30px;">
+          <p>Also worth exploring: Aider (terminal-based), v0 by Vercel (UI generation), Bolt.new (full-stack prototyping)</p>
         </div>
       </div>
     </div>
 
-    <!-- Slide 8: Example Prompt -->
-    <div class="slide">
-      <div class="slide-header">
-        <h2>Vibe Coding in Action</h2>
-      </div>
-      <div class="slide-content">
-        <p style="font-size: 1.3rem; color: #888; margin-bottom: 20px;">A typical prompt to the AI:</p>
-        <div class="code-block">
-          <span class="code-comment">// Human prompt:</span><br><br>
-          <span class="code-string">"Create a React component that displays a list of users fetched from an API. Include loading and error states, use TypeScript, and add a search filter. Make it accessible with proper ARIA labels."</span>
-        </div>
-        <p style="font-size: 1.3rem; color: #888; margin: 30px 0 20px;">AI generates complete, production-ready code with:</p>
-        <ul>
-          <li>TypeScript interfaces for type safety</li>
-          <li>useState & useEffect hooks properly configured</li>
-          <li>Loading spinner and error handling</li>
-          <li>Debounced search functionality</li>
-          <li>ARIA labels and keyboard navigation</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Slide 9: Live Example - Prompt & Output -->
+    <!-- Slide 8: Live Example - Prompt & Output -->
     <div class="slide">
       <div class="slide-header">
         <h2>Live Example: From Prompt to Code</h2>
@@ -672,7 +638,7 @@
       </div>
     </div>
 
-    <!-- Slide 10: Benefits (was 9) -->
+    <!-- Slide 9: Benefits -->
     <div class="slide">
       <div class="slide-header">
         <h2>Benefits of Vibe Coding</h2>
@@ -736,7 +702,86 @@
       </div>
     </div>
 
-    <!-- Slide 11: Best Practices -->
+    <!-- Slide 11: Where AI Fails -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Where Vibe Coding Falls Short</h2>
+        <p style="color: #ff6b6b; font-size: 1.1rem;">Know the limits to use it effectively</p>
+      </div>
+      <div class="slide-content">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+          <div class="cons" style="background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.3);">
+            <h3 style="color: #ff6b6b;">🚫 Complex State Machines</h3>
+            <p style="color: #aaa; margin-top: 10px;">AI struggles with intricate state transitions, race conditions, and multi-step workflows. Often generates incomplete or buggy state logic.</p>
+          </div>
+          <div class="cons" style="background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.3);">
+            <h3 style="color: #ff6b6b;">🐢 Performance-Critical Code</h3>
+            <p style="color: #aaa; margin-top: 10px;">AI frequently writes O(n²) when O(n) exists. Misses caching opportunities, creates memory leaks, ignores algorithmic efficiency.</p>
+          </div>
+          <div class="cons" style="background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.3);">
+            <h3 style="color: #ff6b6b;">🏢 Deep Domain Context</h3>
+            <p style="color: #aaa; margin-top: 10px;">AI doesn't know your proprietary systems, internal APIs, business rules, or why that "weird" legacy code exists. Context windows have limits.</p>
+          </div>
+          <div class="cons" style="background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.3);">
+            <h3 style="color: #ff6b6b;">🏗️ Multi-File Architecture</h3>
+            <p style="color: #aaa; margin-top: 10px;">Large refactors across many files often fail. AI loses track of dependencies, creates circular imports, breaks existing contracts.</p>
+          </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 30px; background: rgba(255,107,107,0.05); border-color: rgba(255,107,107,0.2);">
+          <p style="color: #ff6b6b;">Takeaway: Use AI for acceleration, not abdication. The harder the problem, the more human judgment matters.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 12: Advanced Prompt Engineering -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Advanced Prompt Engineering</h2>
+        <p style="color: #a5d6ff; font-size: 1.1rem;">Level up your AI collaboration</p>
+      </div>
+      <div class="slide-content">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
+            <h3 style="color: #a5d6ff; margin-bottom: 12px;">📁 Codebase Context</h3>
+            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
+              <span class="code-string">@src/utils/api.ts</span> <span class="code-string">@types/user.ts</span><br>
+              <span class="code-comment">Refactor this to use our existing error handling pattern</span>
+            </div>
+            <p style="color: #888; font-size: 0.9rem;">Reference specific files so AI understands your patterns</p>
+          </div>
+          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
+            <h3 style="color: #a5d6ff; margin-bottom: 12px;">🧠 Chain-of-Thought</h3>
+            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
+              <span class="code-comment">First analyze the current implementation,</span><br>
+              <span class="code-comment">then identify the bottleneck,</span><br>
+              <span class="code-comment">then propose an optimized solution.</span>
+            </div>
+            <p style="color: #888; font-size: 0.9rem;">Guide AI through reasoning steps for complex problems</p>
+          </div>
+          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
+            <h3 style="color: #a5d6ff; margin-bottom: 12px;">📋 Cursor Rules / .cursorrules</h3>
+            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
+              <span class="code-comment"># .cursorrules</span><br>
+              <span class="code-string">Use TypeScript strict mode</span><br>
+              <span class="code-string">Prefer functional components</span><br>
+              <span class="code-string">Follow our error boundary pattern</span>
+            </div>
+            <p style="color: #888; font-size: 0.9rem;">Persistent project-level instructions AI always follows</p>
+          </div>
+          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
+            <h3 style="color: #a5d6ff; margin-bottom: 12px;">🔄 Multi-Turn Refinement</h3>
+            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
+              <span class="code-keyword">Turn 1:</span> <span class="code-string">Generate the base hook</span><br>
+              <span class="code-keyword">Turn 2:</span> <span class="code-string">Add error handling</span><br>
+              <span class="code-keyword">Turn 3:</span> <span class="code-string">Optimize for re-renders</span>
+            </div>
+            <p style="color: #888; font-size: 0.9rem;">Build complexity incrementally, not all at once</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 13: Best Practices -->
     <div class="slide">
       <div class="slide-header">
         <h2>Best Practices for Adobe Engineers</h2>
@@ -757,7 +802,7 @@
       </div>
     </div>
 
-    <!-- Slide 12: Impact at Adobe -->
+    <!-- Slide 14: Impact at Adobe -->
     <div class="slide">
       <div class="slide-header">
         <h2>Impact on Adobe Engineering</h2>
@@ -790,7 +835,7 @@
       </div>
     </div>
 
-    <!-- Slide 13: The Human Element -->
+    <!-- Slide 15: The Human Element -->
     <div class="slide">
       <div class="slide-header">
         <h2>The Human Element Remains Critical</h2>
@@ -810,7 +855,7 @@
       </div>
     </div>
 
-    <!-- Slide 14: Getting Started -->
+    <!-- Slide 16: Getting Started -->
     <div class="slide">
       <div class="slide-header">
         <h2>Getting Started Tomorrow</h2>
@@ -847,7 +892,7 @@
       </div>
     </div>
 
-    <!-- Slide 15: Key Takeaways -->
+    <!-- Slide 17: Key Takeaways -->
     <div class="slide">
       <div class="slide-header">
         <h2>Key Takeaways</h2>
@@ -863,7 +908,7 @@
       </div>
     </div>
 
-    <!-- Slide 16: Q&A -->
+    <!-- Slide 18: Q&A -->
     <div class="slide thank-you">
       <h2>Questions & Discussion</h2>
       <p>Let's explore this together</p>
@@ -874,7 +919,7 @@
   </div>
 
   <div class="slide-counter">
-    <span id="currentSlide">1</span> / <span id="totalSlides">16</span>
+    <span id="currentSlide">1</span> / <span id="totalSlides">17</span>
   </div>
 
   <div class="nav">
