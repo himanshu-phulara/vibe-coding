@@ -422,10 +422,10 @@
       <div class="adobe-logo">Adobe</div>
       <h1><span class="vibe">Vibe</span> Coding</h1>
       <p class="subtitle">& The Tech Behind It</p>
-      <p class="presenter" style="margin-bottom: 20px;">Adobe GDC Tech Talk • 2026</p>
-      <div style="display: flex; gap: 40px; margin-top: 20px;">
-        <p style="font-size: 1.1rem; color: #a0a0a0;"><strong style="color: #fff;">Himanshu Phulara</strong><br>Technical Architect</p>
-        <p style="font-size: 1.1rem; color: #a0a0a0;"><strong style="color: #fff;">Mohit Malik</strong><br>Technical Architect</p>
+      <p class="presenter" style="margin-bottom: 20px;">TechX Live - AI & Agentic AI Tech Talk Series</p>
+      <div style="display: flex; gap: 50px; margin-top: 25px;">
+        <p style="font-size: 1.4rem; color: #a0a0a0;"><strong style="color: #fff; font-size: 1.5rem;">Himanshu Phulara</strong><br>Technical Architect</p>
+        <p style="font-size: 1.4rem; color: #a0a0a0;"><strong style="color: #fff; font-size: 1.5rem;">Mohit Malik</strong><br>Technical Architect</p>
       </div>
     </div>
 
@@ -523,43 +523,6 @@
       </div>
     </div>
 
-    <!-- Slide 6: The Workflow -->
-    <div class="slide">
-      <div class="slide-header">
-        <h2>The Vibe Coding Workflow</h2>
-      </div>
-      <div class="slide-content">
-        <div class="workflow-steps">
-          <div class="workflow-step">
-            <div class="step-num">1</div>
-            <h4>Describe</h4>
-            <p>Explain what you want in plain English</p>
-          </div>
-          <div class="workflow-arrow">→</div>
-          <div class="workflow-step">
-            <div class="step-num">2</div>
-            <h4>Generate</h4>
-            <p>AI produces code based on context</p>
-          </div>
-          <div class="workflow-arrow">→</div>
-          <div class="workflow-step">
-            <div class="step-num">3</div>
-            <h4>Review</h4>
-            <p>Evaluate, understand, verify</p>
-          </div>
-          <div class="workflow-arrow">→</div>
-          <div class="workflow-step">
-            <div class="step-num">4</div>
-            <h4>Iterate</h4>
-            <p>Refine with follow-up prompts</p>
-          </div>
-        </div>
-        <div class="highlight-box">
-          <p>Key Insight: You're still the architect. AI is your highly capable assistant who can write code fast but needs your judgment and domain expertise.</p>
-        </div>
-      </div>
-    </div>
-
     <!-- Slide 7: Tools -->
     <div class="slide">
       <div class="slide-header">
@@ -603,50 +566,7 @@
       </div>
     </div>
 
-    <!-- Slide 8: The Tech Stack (Foundation) -->
-    <div class="slide">
-      <div class="slide-header">
-        <h2>The Tech Stack Behind Vibe Coding</h2>
-      </div>
-      <div class="slide-content">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-          <div style="background: rgba(255,107,107,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,107,107,0.3);">
-            <h3 style="color: #ff6b6b; margin-bottom: 15px;">🧠 Large Language Models</h3>
-            <p style="color: #ccc; line-height: 1.7;">Foundation models (GPT-4, Claude, Gemini) trained on billions of code samples. They predict the next token based on context — essentially very sophisticated autocomplete.</p>
-            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
-              <span class="code-comment">Input:</span> <span class="code-string">"function add(a, b) { return"</span><br>
-              <span class="code-comment">Model predicts:</span> <span class="code-keyword">a + b; }</span>
-            </div>
-          </div>
-          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.3);">
-            <h3 style="color: #a5d6ff; margin-bottom: 15px;">📊 Embeddings & Vector Search</h3>
-            <p style="color: #ccc; line-height: 1.7;">Code is converted to numerical vectors capturing semantic meaning. Similar code clusters together, enabling "find code that does X" without keyword matching.</p>
-            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
-              <span class="code-string">"parseJSON"</span> → <span class="code-keyword">[0.2, -0.5, 0.8, ...]</span><br>
-              <span class="code-string">"decodeJSON"</span> → <span class="code-keyword">[0.21, -0.48, 0.79, ...]</span> <span class="code-comment">// Similar!</span>
-            </div>
-          </div>
-          <div style="background: rgba(0,200,83,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(0,200,83,0.3);">
-            <h3 style="color: #00c853; margin-bottom: 15px;">🔄 RAG (Retrieval-Augmented Generation)</h3>
-            <p style="color: #ccc; line-height: 1.7;">Instead of fine-tuning, RAG retrieves relevant code from YOUR codebase at query time and injects it into the prompt. This is how Cursor "knows" your patterns.</p>
-            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
-              <span class="code-comment">Query:</span> <span class="code-string">"Add error handling"</span><br>
-              <span class="code-comment">RAG finds:</span> <span class="code-keyword">your existing ErrorBoundary.tsx</span>
-            </div>
-          </div>
-          <div style="background: rgba(210,168,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(210,168,255,0.3);">
-            <h3 style="color: #d2a8ff; margin-bottom: 15px;">🌊 Streaming & Token Windows</h3>
-            <p style="color: #ccc; line-height: 1.7;">Responses stream token-by-token for instant feedback. Context windows (8K → 128K → 1M) determine how much code the model can "see" at once.</p>
-            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
-              <span class="code-comment">GPT-4:</span> <span class="code-keyword">128K tokens</span> <span class="code-comment">≈ 100K words</span><br>
-              <span class="code-comment">Claude:</span> <span class="code-keyword">200K tokens</span> <span class="code-comment">≈ 150K words</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 9: How Cursor Works (Architecture) -->
+    <!-- Slide 8: How Cursor Works (Architecture) -->
     <div class="slide">
       <div class="slide-header">
         <h2>Under the Hood: How Cursor Works</h2>
@@ -709,6 +629,86 @@
               <li>Run linting & validation</li>
             </ul>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 9: The Tech Stack (Foundation) -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>The Tech Stack Behind Vibe Coding</h2>
+      </div>
+      <div class="slide-content">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+          <div style="background: rgba(255,107,107,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,107,107,0.3);">
+            <h3 style="color: #ff6b6b; margin-bottom: 15px;">🧠 Large Language Models</h3>
+            <p style="color: #ccc; line-height: 1.7;">Foundation models (GPT-4, Claude, Gemini) trained on billions of code samples. They predict the next token based on context — essentially very sophisticated autocomplete.</p>
+            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
+              <span class="code-comment">Input:</span> <span class="code-string">"function add(a, b) { return"</span><br>
+              <span class="code-comment">Model predicts:</span> <span class="code-keyword">a + b; }</span>
+            </div>
+          </div>
+          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.3);">
+            <h3 style="color: #a5d6ff; margin-bottom: 15px;">📊 Embeddings & Vector Search</h3>
+            <p style="color: #ccc; line-height: 1.7;">Code is converted to numerical vectors capturing semantic meaning. Similar code clusters together, enabling "find code that does X" without keyword matching.</p>
+            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
+              <span class="code-string">"parseJSON"</span> → <span class="code-keyword">[0.2, -0.5, 0.8, ...]</span><br>
+              <span class="code-string">"decodeJSON"</span> → <span class="code-keyword">[0.21, -0.48, 0.79, ...]</span> <span class="code-comment">// Similar!</span>
+            </div>
+          </div>
+          <div style="background: rgba(0,200,83,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(0,200,83,0.3);">
+            <h3 style="color: #00c853; margin-bottom: 15px;">🔄 RAG (Retrieval-Augmented Generation)</h3>
+            <p style="color: #ccc; line-height: 1.7;">Instead of fine-tuning, RAG retrieves relevant code from YOUR codebase at query time and injects it into the prompt. This is how Cursor "knows" your patterns.</p>
+            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
+              <span class="code-comment">Query:</span> <span class="code-string">"Add error handling"</span><br>
+              <span class="code-comment">RAG finds:</span> <span class="code-keyword">your existing ErrorBoundary.tsx</span>
+            </div>
+          </div>
+          <div style="background: rgba(210,168,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(210,168,255,0.3);">
+            <h3 style="color: #d2a8ff; margin-bottom: 15px;">🌊 Streaming & Token Windows</h3>
+            <p style="color: #ccc; line-height: 1.7;">Responses stream token-by-token for instant feedback. Context windows (8K → 128K → 1M) determine how much code the model can "see" at once.</p>
+            <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
+              <span class="code-comment">GPT-4:</span> <span class="code-keyword">128K tokens</span> <span class="code-comment">≈ 100K words</span><br>
+              <span class="code-comment">Claude:</span> <span class="code-keyword">200K tokens</span> <span class="code-comment">≈ 150K words</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: The Workflow -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>The Vibe Coding Workflow</h2>
+      </div>
+      <div class="slide-content">
+        <div class="workflow-steps">
+          <div class="workflow-step">
+            <div class="step-num">1</div>
+            <h4>Describe</h4>
+            <p>Explain what you want in plain English</p>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-num">2</div>
+            <h4>Generate</h4>
+            <p>AI produces code based on context</p>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-num">3</div>
+            <h4>Review</h4>
+            <p>Evaluate, understand, verify</p>
+          </div>
+          <div class="workflow-arrow">→</div>
+          <div class="workflow-step">
+            <div class="step-num">4</div>
+            <h4>Iterate</h4>
+            <p>Refine with follow-up prompts</p>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <p>Key Insight: You're still the architect. AI is your highly capable assistant who can write code fast but needs your judgment and domain expertise.</p>
         </div>
       </div>
     </div>
