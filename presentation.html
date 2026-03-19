@@ -874,10 +874,10 @@
       </div>
     </div>
 
-    <!-- Slide 13: Live Example - Prompt & Output -->
+    <!-- Slide 13: Example - Prompt & Output -->
     <div class="slide">
       <div class="slide-header">
-        <h2>Live Example: From Prompt to Code</h2>
+        <h2>Example: From Prompt to Code</h2>
         <p style="color: #888; font-size: 0.95rem; margin-top: 10px;">Good Prompt → Better Prompt</p>
       </div>
       <div class="slide-content" style="padding-top: 5px;">
@@ -951,6 +951,54 @@ Also include unit tests using Jest (TS), covering normal cases and edge cases (e
         <!-- Conclusion Footer -->
         <div style="text-align: center; margin-top: 14px; padding: 10px 20px; background: rgba(165,214,255,0.08); border-radius: 8px; border: 1px solid rgba(165,214,255,0.15);">
           <p style="color: #a5d6ff; font-size: 0.75rem; margin: 0;">💡 <strong>Better prompts = Better code.</strong> Be specific about types, validation, edge cases, and tests.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 14: Advanced Prompt Engineering -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Advanced Prompt Engineering</h2>
+        <p style="color: #a5d6ff; font-size: 1.1rem; margin-top: 20px;">Level up your AI collaboration</p>
+      </div>
+      <div class="slide-content">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
+            <h3 style="color: #a5d6ff; margin-bottom: 12px;">📁 Codebase Context</h3>
+            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
+              <span class="code-string">@src/utils/api.ts</span> <span class="code-string">@types/user.ts</span><br>
+              <span class="code-comment">Refactor this to use our existing error handling pattern</span>
+            </div>
+            <p style="color: #888; font-size: 0.9rem;">Reference specific files so AI understands your patterns</p>
+          </div>
+          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
+            <h3 style="color: #a5d6ff; margin-bottom: 12px;">🧠 Chain-of-Thought</h3>
+            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
+              <span class="code-comment">First analyze the current implementation,</span><br>
+              <span class="code-comment">then identify the bottleneck,</span><br>
+              <span class="code-comment">then propose an optimized solution.</span>
+            </div>
+            <p style="color: #888; font-size: 0.9rem;">Guide AI through reasoning steps for complex problems</p>
+          </div>
+          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
+            <h3 style="color: #a5d6ff; margin-bottom: 12px;">📋 Cursor Rules / .cursorrules</h3>
+            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
+              <span class="code-comment"># .cursorrules</span><br>
+              <span class="code-string">Use TypeScript strict mode</span><br>
+              <span class="code-string">Prefer functional components</span><br>
+              <span class="code-string">Follow our error boundary pattern</span>
+            </div>
+            <p style="color: #888; font-size: 0.9rem;">Persistent project-level instructions AI always follows</p>
+          </div>
+          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
+            <h3 style="color: #a5d6ff; margin-bottom: 12px;">🔄 Multi-Turn Refinement</h3>
+            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
+              <span class="code-keyword">Turn 1:</span> <span class="code-string">Generate the base hook</span><br>
+              <span class="code-keyword">Turn 2:</span> <span class="code-string">Add error handling</span><br>
+              <span class="code-keyword">Turn 3:</span> <span class="code-string">Optimize for re-renders</span>
+            </div>
+            <p style="color: #888; font-size: 0.9rem;">Build complexity incrementally, not all at once</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1084,54 +1132,6 @@ Also include unit tests using Jest (TS), covering normal cases and edge cases (e
         </div>
         <div class="highlight-box" style="margin-top: 30px; background: rgba(255,107,107,0.05); border-color: rgba(255,107,107,0.2);">
           <p style="color: #ff6b6b;">Takeaway: Use AI for acceleration, not abdication. The harder the problem, the more human judgment matters.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 12: Advanced Prompt Engineering -->
-    <div class="slide">
-      <div class="slide-header">
-        <h2>Advanced Prompt Engineering</h2>
-        <p style="color: #a5d6ff; font-size: 1.1rem; margin-top: 20px;">Level up your AI collaboration</p>
-      </div>
-      <div class="slide-content">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
-          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
-            <h3 style="color: #a5d6ff; margin-bottom: 12px;">📁 Codebase Context</h3>
-            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
-              <span class="code-string">@src/utils/api.ts</span> <span class="code-string">@types/user.ts</span><br>
-              <span class="code-comment">Refactor this to use our existing error handling pattern</span>
-            </div>
-            <p style="color: #888; font-size: 0.9rem;">Reference specific files so AI understands your patterns</p>
-          </div>
-          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
-            <h3 style="color: #a5d6ff; margin-bottom: 12px;">🧠 Chain-of-Thought</h3>
-            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
-              <span class="code-comment">First analyze the current implementation,</span><br>
-              <span class="code-comment">then identify the bottleneck,</span><br>
-              <span class="code-comment">then propose an optimized solution.</span>
-            </div>
-            <p style="color: #888; font-size: 0.9rem;">Guide AI through reasoning steps for complex problems</p>
-          </div>
-          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
-            <h3 style="color: #a5d6ff; margin-bottom: 12px;">📋 Cursor Rules / .cursorrules</h3>
-            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
-              <span class="code-comment"># .cursorrules</span><br>
-              <span class="code-string">Use TypeScript strict mode</span><br>
-              <span class="code-string">Prefer functional components</span><br>
-              <span class="code-string">Follow our error boundary pattern</span>
-            </div>
-            <p style="color: #888; font-size: 0.9rem;">Persistent project-level instructions AI always follows</p>
-          </div>
-          <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
-            <h3 style="color: #a5d6ff; margin-bottom: 12px;">🔄 Multi-Turn Refinement</h3>
-            <div class="code-block" style="font-size: 0.8rem; padding: 12px; margin: 10px 0;">
-              <span class="code-keyword">Turn 1:</span> <span class="code-string">Generate the base hook</span><br>
-              <span class="code-keyword">Turn 2:</span> <span class="code-string">Add error handling</span><br>
-              <span class="code-keyword">Turn 3:</span> <span class="code-string">Optimize for re-renders</span>
-            </div>
-            <p style="color: #888; font-size: 0.9rem;">Build complexity incrementally, not all at once</p>
-          </div>
         </div>
       </div>
     </div>
