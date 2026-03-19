@@ -878,47 +878,79 @@
     <div class="slide">
       <div class="slide-header">
         <h2>Live Example: From Prompt to Code</h2>
+        <p style="color: #888; font-size: 0.95rem; margin-top: 10px;">Good Prompt → Better Prompt</p>
       </div>
-      <div class="slide-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-        <div>
-          <h3 style="color: #ff6b6b; margin-bottom: 15px;">The Prompt (in Cursor)</h3>
-          <div class="code-block" style="font-size: 0.95rem; padding: 20px;">
-            <span class="code-string">"Create a password strength checker function in TypeScript. It should return weak/medium/strong based on: length (min 8), uppercase, lowercase, numbers, and special characters. Include unit tests."</span>
+      <div class="slide-content" style="padding-top: 5px;">
+        <!-- Row 1: Good Prompt -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 14px;">
+          <div style="background: rgba(255,107,107,0.06); padding: 12px; border-radius: 10px; border: 1px solid rgba(255,107,107,0.2);">
+            <h3 style="color: #ff6b6b; margin-bottom: 8px; font-size: 1.05rem;">🔴 Good Prompt</h3>
+            <div class="code-block" style="font-size: 0.8rem; padding: 12px; line-height: 1.5;">
+<span class="code-string">"Create a password strength checker function in TypeScript. It should return weak/medium/strong based on: length (min 8), uppercase, lowercase, numbers, and special characters. Include unit tests."</span>
+            </div>
           </div>
-          
-          <h3 style="color: #a5d6ff; margin: 25px 0 15px;">Why This Prompt Works</h3>
-          <ul style="font-size: 1rem;">
-            <li><strong>Language specified</strong> → TypeScript</li>
-            <li><strong>Clear requirements</strong> → 5 specific criteria</li>
-            <li><strong>Output format</strong> → weak/medium/strong</li>
-            <li><strong>Extras requested</strong> → unit tests included</li>
-          </ul>
-        </div>
-        
-        <div>
-          <h3 style="color: #00c853; margin-bottom: 15px;">Generated Output</h3>
-          <div class="code-block" style="font-size: 0.75rem; padding: 15px; line-height: 1.5;">
-<span class="code-keyword">type</span> Strength = <span class="code-string">'weak'</span> | <span class="code-string">'medium'</span> | <span class="code-string">'strong'</span>;
-
-<span class="code-keyword">export function</span> <span class="code-function">checkPasswordStrength</span>(
-  password: <span class="code-keyword">string</span>
-): Strength {
+          <div style="background: rgba(255,107,107,0.06); padding: 12px; border-radius: 10px; border: 1px solid rgba(255,107,107,0.2);">
+            <h3 style="color: #ff6b6b; margin-bottom: 8px; font-size: 1.05rem;">Generated Output</h3>
+            <div class="code-block" style="font-size: 0.72rem; padding: 10px; line-height: 1.4;">
+<span class="code-keyword">export function</span> <span class="code-function">checkPasswordStrength</span>(pw: <span class="code-keyword">string</span>) {
   <span class="code-keyword">let</span> score = <span class="code-keyword">0</span>;
-  
-  <span class="code-keyword">if</span> (password.length >= <span class="code-keyword">8</span>) score++;
-  <span class="code-keyword">if</span> (<span class="code-string">/[A-Z]/</span>.test(password)) score++;
-  <span class="code-keyword">if</span> (<span class="code-string">/[a-z]/</span>.test(password)) score++;
-  <span class="code-keyword">if</span> (<span class="code-string">/[0-9]/</span>.test(password)) score++;
-  <span class="code-keyword">if</span> (<span class="code-string">/[^A-Za-z0-9]/</span>.test(password)) score++;
-  
-  <span class="code-keyword">if</span> (score <= <span class="code-keyword">2</span>) <span class="code-keyword">return</span> <span class="code-string">'weak'</span>;
-  <span class="code-keyword">if</span> (score <= <span class="code-keyword">4</span>) <span class="code-keyword">return</span> <span class="code-string">'medium'</span>;
-  <span class="code-keyword">return</span> <span class="code-string">'strong'</span>;
+  <span class="code-keyword">if</span> (pw.length >= <span class="code-keyword">8</span>) score++;
+  <span class="code-keyword">if</span> (<span class="code-string">/[A-Z]/</span>.test(pw)) score++;
+  <span class="code-keyword">if</span> (<span class="code-string">/[a-z]/</span>.test(pw)) score++;
+  <span class="code-keyword">if</span> (<span class="code-string">/[0-9]/</span>.test(pw)) score++;
+  <span class="code-keyword">if</span> (<span class="code-string">/[^A-Za-z0-9]/</span>.test(pw)) score++;
+  <span class="code-keyword">return</span> score <= <span class="code-keyword">2</span> ? <span class="code-string">'weak'</span> : score <= <span class="code-keyword">4</span> ? <span class="code-string">'medium'</span> : <span class="code-string">'strong'</span>;
 }
+            </div>
+            <p style="color: #ff6b6b; font-size: 0.75rem; margin-top: 6px;">⚠️ Works, but lacks validation and clear strength rules</p>
           </div>
-          <p style="color: #888; font-size: 0.9rem; margin-top: 15px; text-align: center;">
-            ✓ Type-safe &nbsp; ✓ Clean logic &nbsp; ✓ Ready to use
-          </p>
+        </div>
+
+        <!-- Row 2: Better Prompt -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+          <div style="background: rgba(0,200,83,0.08); padding: 12px; border-radius: 10px; border: 1px solid rgba(0,200,83,0.3);">
+            <h3 style="color: #00c853; margin-bottom: 8px; font-size: 1.05rem;">🟢 Better Prompt</h3>
+            <div class="code-block" style="font-size: 0.62rem; padding: 10px; line-height: 1.4;">
+<span class="code-string">"Create a TypeScript function named `passwordStrength(password: string): "weak" | "medium" | "strong"`.
+
+Rules:
+- Minimum length considered: 8 characters.
+- Strength rules:
+  - weak: length &lt; 8 OR matches fewer than 2 of: uppercase, lowercase, digits, special chars.
+  - medium: length >= 8 AND matches exactly 2 or 3 of the 4 character classes.
+  - strong: length >= 8 AND matches all 4 classes.
+- Special characters = any non-alphanumeric ASCII (e.g. !"#$%&amp;'()*+,-./:;&lt;=>?@[\]^_`{|}~).
+- Function must validate input type and throw `TypeError` for non-string inputs.
+- Export as a named export.
+
+Also include unit tests using Jest (TS), covering normal cases and edge cases (empty string, all-lowercase long password, missing input, long password with unicode). Include a `package.json` test script."</span>
+            </div>
+          </div>
+          <div style="background: rgba(0,200,83,0.08); padding: 12px; border-radius: 10px; border: 1px solid rgba(0,200,83,0.3);">
+            <h3 style="color: #00c853; margin-bottom: 8px; font-size: 1.05rem;">Generated Output</h3>
+            <div class="code-block" style="font-size: 0.68rem; padding: 10px; line-height: 1.4;">
+<span class="code-keyword">export function</span> <span class="code-function">passwordStrength</span>(
+  password: <span class="code-keyword">string</span>
+): <span class="code-string">"weak"</span> | <span class="code-string">"medium"</span> | <span class="code-string">"strong"</span> {
+  <span class="code-keyword">if</span> (<span class="code-keyword">typeof</span> password !== <span class="code-string">"string"</span>)
+    <span class="code-keyword">throw new</span> <span class="code-function">TypeError</span>(<span class="code-string">"Input must be a string"</span>);
+  <span class="code-keyword">if</span> (password.length &lt; <span class="code-keyword">8</span>) <span class="code-keyword">return</span> <span class="code-string">"weak"</span>;
+
+  <span class="code-keyword">const</span> classes = [<span class="code-string">/[A-Z]/</span>, <span class="code-string">/[a-z]/</span>, <span class="code-string">/\d/</span>, <span class="code-string">/[^A-Za-z0-9]/</span>]
+    .filter((r) => r.test(password)).length;
+
+  <span class="code-keyword">if</span> (classes &lt; <span class="code-keyword">2</span>) <span class="code-keyword">return</span> <span class="code-string">"weak"</span>;
+  <span class="code-keyword">return</span> classes &lt; <span class="code-keyword">4</span> ? <span class="code-string">"medium"</span> : <span class="code-string">"strong"</span>;
+}
+<span class="code-comment">// ✓ Jest tests + package.json included</span>
+            </div>
+            <p style="color: #00c853; font-size: 0.75rem; margin-top: 6px;">✓ Type-safe ✓ Validation ✓ Clear rules ✓ Tests</p>
+          </div>
+        </div>
+
+        <!-- Conclusion Footer -->
+        <div style="text-align: center; margin-top: 14px; padding: 10px 20px; background: rgba(165,214,255,0.08); border-radius: 8px; border: 1px solid rgba(165,214,255,0.15);">
+          <p style="color: #a5d6ff; font-size: 0.75rem; margin: 0;">💡 <strong>Better prompts = Better code.</strong> Be specific about types, validation, edge cases, and tests.</p>
         </div>
       </div>
     </div>
