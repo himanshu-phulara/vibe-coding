@@ -9,6 +9,7 @@ An interactive presentation on **Vibe Coding** — the AI-assisted development p
 ├── presentation.html      # Main slide deck (open in browser)
 ├── assets/                # Images used by the deck
 ├── docs/
+│   ├── README.md          # Index of doc files
 │   ├── speaker-notes.md   # Speaker script & Q&A prep
 │   └── preparation-guide.md
 ├── scripts/
