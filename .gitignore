@@ -1,0 +1,6 @@
+# PowerPoint / Office lock files
+~$*.pptx
+~$*.docx
+
+# Temporary slide screenshots from export script
+ppt_export_screenshots/
