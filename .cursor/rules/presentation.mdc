@@ -1,0 +1,18 @@
+---
+description: Conventions for the vibe-coding HTML slide deck and exports
+globs:
+  - presentation.html
+  - assets/**/*
+  - scripts/export_html_to_pptx.py
+  - README.md
+---
+
+# Presentation repo rules
+
+- **Single deck file:** Prefer all slide changes in `presentation.html` unless we explicitly split the project.
+- **Slide model:** Each slide is a `.slide` div; exactly one has `.active` at a time. Do not remove or rename `showSlide`, `nextSlide`, `prevSlide`, or the keyboard listener without replacing equivalent behavior.
+- **Slide count:** Keep `#totalSlides` synced from `document.querySelectorAll('.slide').length` — never hardcode a fixed total in JS.
+- **Images:** New images go in `assets/`; reference as `assets/filename.png` from `presentation.html`.
+- **Visual style:** Preserve dark keynote look, red accent, Source Sans Pro + Source Code Pro, and existing `.code-block` styling unless redesign is intentional.
+- **New slides:** Reuse established HTML/CSS patterns (e.g. `.slide-header`, `.slide-content`, grids, cards) instead of introducing parallel layout systems.
+- **Export script:** If you change `ROOT`, `HTML_FILE`, `OUTPUT_PPTX`, or `SCREENSHOT_DIR` in `scripts/export_html_to_pptx.py`, update the **Export to PowerPoint** section (and repo layout if needed) in `README.md`.

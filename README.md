@@ -7,6 +7,8 @@ An interactive presentation on **Vibe Coding** — the AI-assisted development p
 ```
 .
 ├── presentation.html      # Main slide deck (open in browser)
+├── plan.md                # How the deck is structured & maintained
+├── .cursor/rules/         # Cursor project rules for this repo
 ├── assets/                # Images used by the deck
 ├── docs/
 │   ├── README.md          # Index of doc files
@@ -30,6 +32,11 @@ Vibe Coding is a term popularized by Andrej Karpathy: developers describe intent
    `python3 -m http.server 8080` → open `http://localhost:8080/presentation.html`
 3. Press **F11** or **Cmd+Shift+F** for fullscreen.
 4. Use **→** / **←** / **Space** to navigate slides.
+
+## Maintaining the deck (plan & Cursor rules)
+
+- **[plan.md](plan.md)** — Short maintenance guide: slide DOM pattern, JS invariants (`showSlide`, keyboard nav, counter from live slide count), assets under `assets/`, and how this ties to `docs/`, `scripts/`, and `exports/`.
+- **Cursor rules:** [`.cursor/rules/presentation.mdc`](.cursor/rules/presentation.mdc) — Project conventions for AI-assisted edits (single-file deck, don’t break navigation, reuse layouts, keep export docs in sync). Useful for demos of “rules + vibe coding” best practices.
 
 ## Export to PowerPoint (preserves visual design)
 
