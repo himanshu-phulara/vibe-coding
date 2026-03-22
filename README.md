@@ -1,57 +1,65 @@
 # Vibe Coding Presentation
 
-An interactive presentation on **Vibe Coding** — the AI-assisted development paradigm — created for Adobe GDC.
+An interactive presentation on **Vibe Coding** — the AI-assisted development paradigm — for **TechX Live - AI & Agentic AI Tech Talk Series**.
+
+## Repository layout
+
+```
+.
+├── presentation.html      # Main slide deck (open in browser)
+├── assets/                # Images used by the deck
+├── docs/
+│   ├── speaker-notes.md   # Speaker script & Q&A prep
+│   └── preparation-guide.md
+├── scripts/
+│   └── export_html_to_pptx.py   # Build PowerPoint from HTML
+└── exports/
+    ├── README.md
+    └── VibeCoding_Presentation.pptx   # Generated; re-run script to refresh
+```
 
 ## What is Vibe Coding?
 
-Vibe Coding is a term coined by Andrej Karpathy describing a new way of programming where developers describe their intent in natural language and AI generates the code. It's about "seeing things, saying things, running things, and copy-pasting things" rather than writing every line by hand.
+Vibe Coding is a term popularized by Andrej Karpathy: developers describe intent in natural language and AI generates code — “seeing things, saying things, running things, and copy-pasting things” rather than writing every line by hand.
 
-## Quick Start
+## Quick start
 
-1. Open `presentation.html` in your browser (Chrome recommended)
-2. Press `F11` or `Cmd+Shift+F` for fullscreen
-3. Use `→` / `←` / `Space` to navigate slides
+1. Open **`presentation.html`** in your browser (Chrome recommended).
+2. From the repo root, you can also serve locally:  
+   `python3 -m http.server 8080` → open `http://localhost:8080/presentation.html`
+3. Press **F11** or **Cmd+Shift+F** for fullscreen.
+4. Use **→** / **←** / **Space** to navigate slides.
 
 ## Export to PowerPoint (preserves visual design)
 
-Screenshots each slide at **1920×1080** in headless Chromium and builds **`VibeCoding_Presentation.pptx`** (16:9).
+Screenshots each slide at **1920×1080** and writes **`exports/VibeCoding_Presentation.pptx`** (16:9).
 
 ```bash
 pip install playwright python-pptx
 playwright install chromium
-python3 export_html_to_pptx.py
+python3 scripts/export_html_to_pptx.py
 ```
 
-- Keeps screenshots only temporarily (deleted after the PPTX is built). Use `--keep-screenshots` to retain `ppt_export_screenshots/`.
-- Slide count matches the number of `.slide` elements in `presentation.html` (currently auto-detected).
+- Temp PNGs go to **`exports/.ppt_screenshots/`** (gitignored) and are deleted after the build unless you pass **`--keep-screenshots`**.
+- Slide count follows the number of `.slide` elements in `presentation.html`.
 
-**If slides look all black in PowerPoint:** the script uses system **Google Chrome** when available (`channel=chrome`) for reliable gradient/CSS capture. If that fails, run with `--bundled-chromium-only`. Re-run after `playwright install chromium`. Open a saved `ppt_export_screenshots/slide_01.png` — if the PNG looks correct but PPT does not, try re-inserting images in Keynote/PowerPoint.
+**If slides look all black in PowerPoint:** the script prefers system **Google Chrome** (`channel=chrome`). Try **`--bundled-chromium-only`** if needed. With **`--keep-screenshots`**, inspect `exports/.ppt_screenshots/slide_01.png`.
 
-## Files
+## Presentation topics (deck)
 
-| File | Description |
-|------|-------------|
-| `presentation.html` | Interactive slide deck (open in browser) |
-| `export_html_to_pptx.py` | Script: HTML → PPTX via Playwright screenshots |
-| `speaker-notes.md` | Detailed speaker notes and Q&A preparation |
-| `preparation-guide.md` | Checklists and tips for presenting |
+- What is Vibe Coding? · Origin story · Traditional vs vibe workflow  
+- Tools of the trade · Cursor under the hood · Tech stack (LLM, RAG, embeddings)  
+- Request journey · Agentic AI · ReAct · MCP  
+- Example prompts · Advanced prompt engineering · Benefits & challenges  
+- Best practices · Evolving role · Takeaways · Q&A  
 
-## Presentation Topics
+## Tools covered
 
-- What is Vibe Coding?
-- The Spectrum: Copilot → Cursor → Autonomous Agents
-- Best Use Cases (and when to avoid it)
-- Live Demo Ideas
-- Limitations & Risks
-- The Future of Development
-
-## Tools Covered
-
-- [Cursor](https://cursor.com) — AI-first code editor
-- [GitHub Copilot](https://github.com/features/copilot) — AI pair programmer
-- [Claude](https://claude.ai) / [ChatGPT](https://chat.openai.com) — Foundation models
-- [Bolt.new](https://bolt.new) — Full-stack AI builder
+- [Cursor](https://cursor.com) — AI-first editor  
+- [GitHub Copilot](https://github.com/features/copilot)  
+- [Claude](https://claude.ai) / [ChatGPT](https://chat.openai.com)  
+- [Bolt.new](https://bolt.new) — full-stack AI builder  
 
 ## License
 
-Internal presentation for Adobe GDC.
+Internal / org use as appropriate for your event.

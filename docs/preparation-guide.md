@@ -192,17 +192,23 @@ Best,
 
 ## 📂 FILE LOCATIONS
 
-All your presentation materials are in:
+Repository layout (paths relative to repo root):
 
 ```
-/Users/hphulara/vibe-coding-presentation/
-├── presentation.html    ← Open this in Chrome to present
-├── speaker-notes.md     ← Your script and Q&A prep
-└── preparation-guide.md ← This file
+.
+├── presentation.html           ← Open this in Chrome to present
+├── assets/                     ← Images for the deck
+├── docs/
+│   ├── speaker-notes.md        ← Your script and Q&A prep
+│   └── preparation-guide.md    ← This file
+├── scripts/
+│   └── export_html_to_pptx.py   ← Optional: build PowerPoint
+└── exports/
+    └── VibeCoding_Presentation.pptx   ← Generated export
 ```
 
 ### How to Present
-1. Open `presentation.html` in Chrome
+1. Open `presentation.html` in Chrome (from repo root)
 2. Press F11 (or Cmd+Shift+F on Mac) for fullscreen
 3. Use → / ← / Space to navigate
 4. Slide counter shows at bottom left

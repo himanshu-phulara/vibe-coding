@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
-Export presentation.html to VibeCoding_Presentation.pptx by screenshotting each slide
-at 1920x1080 and embedding images into a 16:9 PowerPoint.
+Export presentation.html to exports/VibeCoding_Presentation.pptx by screenshotting
+each slide at 1920x1080 and embedding images into a 16:9 PowerPoint.
+
+Run from anywhere:
+  python3 scripts/export_html_to_pptx.py
 
 Requires: pip install playwright python-pptx
            playwright install chromium
@@ -26,10 +29,12 @@ except ImportError as e:
     ) from e
 
 
-ROOT = Path(__file__).resolve().parent
+# Repository root (parent of scripts/)
+ROOT = Path(__file__).resolve().parent.parent
 HTML_FILE = "presentation.html"
-OUTPUT_PPTX = "VibeCoding_Presentation.pptx"
-SCREENSHOT_DIR = ROOT / "ppt_export_screenshots"
+EXPORT_DIR = ROOT / "exports"
+OUTPUT_PPTX = EXPORT_DIR / "VibeCoding_Presentation.pptx"
+SCREENSHOT_DIR = EXPORT_DIR / ".ppt_screenshots"
 VIEWPORT = {"width": 1920, "height": 1080}
 # 16:9 slide size (inches) — common widescreen
 SLIDE_W = Inches(13.333)
@@ -174,6 +179,7 @@ def capture_slides(
 
 
 def build_pptx(image_paths: list[Path], output: Path) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
     prs = Presentation()
     prs.slide_width = SLIDE_W
     prs.slide_height = SLIDE_H
@@ -191,7 +197,7 @@ def main() -> None:
     parser.add_argument(
         "--keep-screenshots",
         action="store_true",
-        help="Do not delete ppt_export_screenshots after building PPTX",
+        help="Keep exports/.ppt_screenshots after building (default: delete temp PNGs)",
     )
     parser.add_argument(
         "--bundled-chromium-only",
@@ -216,15 +222,14 @@ def main() -> None:
         )
         print(f"Captured {len(shots)} slides")
 
-        out = ROOT / OUTPUT_PPTX
-        build_pptx(shots, out)
-        print(f"Saved: {out}")
+        build_pptx(shots, OUTPUT_PPTX)
+        print(f"Saved: {OUTPUT_PPTX}")
     finally:
         httpd.shutdown()
 
     if not args.keep_screenshots:
-        for p in SCREENSHOT_DIR.glob("slide_*.png"):
-            p.unlink(missing_ok=True)
+        for pth in SCREENSHOT_DIR.glob("slide_*.png"):
+            pth.unlink(missing_ok=True)
         try:
             SCREENSHOT_DIR.rmdir()
         except OSError:

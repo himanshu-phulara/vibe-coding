@@ -3,4 +3,5 @@
 ~$*.docx
 
 # Temporary slide screenshots from export script
+exports/.ppt_screenshots/
 ppt_export_screenshots/
