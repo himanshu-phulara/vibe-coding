@@ -100,7 +100,7 @@ def capture_slides(
         context = browser.new_context(
             viewport=VIEWPORT,
             device_scale_factor=1,
-            color_scheme="dark",
+            color_scheme="light",
             reduced_motion="reduce",
         )
         page = context.new_page()
@@ -108,35 +108,23 @@ def capture_slides(
         page.goto(url, wait_until="domcontentloaded", timeout=120_000)
         page.wait_for_load_state("networkidle", timeout=120_000)
 
-        # Force backgrounds to paint in headless Chromium (avoids all-black captures)
+        # Ensure fonts (e.g. Google Fonts) and backgrounds paint like a normal browser tab.
+        # Do NOT override deck colors — injected dark-theme CSS previously broke exports after
+        # the white / Adobe corporate template shipped.
         page.add_style_tag(
             content="""
-              html, body {
-                background-color: #1a1a2e !important;
+              html, body, .presentation, .slide {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
-              }
-              .presentation {
-                background-color: #1a1a2e !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-              }
-              .slide {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-              }
-              .slide.active {
-                background-color: #16213e !important;
-                background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
-              }
-              .slide.title-slide.active {
-                background-color: #0f3460 !important;
-                background-image: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%) !important;
               }
             """
         )
+        try:
+            page.evaluate("() => document.fonts.ready")
+        except Exception:
+            pass
 
-        page.wait_for_timeout(2000)
+        page.wait_for_timeout(1500)
 
         total = page.evaluate("document.querySelectorAll('.slide').length")
         if total < 1:
@@ -158,8 +146,8 @@ def capture_slides(
                 i,
             )
             page.wait_for_selector(".slide.active", state="visible", timeout=10_000)
-            page.wait_for_timeout(400)
-            # Wait two animation frames so gradients/paints flush
+            page.wait_for_timeout(500)
+            # Wait two animation frames so paints flush
             page.evaluate(
                 """() => new Promise((resolve) => {
                     requestAnimationFrame(() => requestAnimationFrame(resolve));
@@ -167,9 +155,13 @@ def capture_slides(
             )
 
             path = out_dir / f"slide_{i + 1:02d}.png"
-            # Capture the visible slide layer (includes its background), not a blank compositor buffer
-            active = page.locator(".slide.active").first
-            active.screenshot(path=str(path), type="png", animations="disabled")
+            # Full viewport matches what you see in the browser (no fixed nav/counter chrome).
+            page.screenshot(
+                path=str(path),
+                type="png",
+                full_page=False,
+                animations="disabled",
+            )
             paths.append(path)
 
         context.close()

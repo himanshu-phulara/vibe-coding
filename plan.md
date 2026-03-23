@@ -23,12 +23,8 @@ New slides are new `.slide` `<div>`s inside `.presentation`, following existing 
 ## Behavior (do not break)
 
 - **Slides:** `document.querySelectorAll('.slide')` drives everything.
-- **`showSlide(n)`** — updates index with wraparound, toggles `.active`, updates UI.
-- **Keyboard:** `ArrowRight` / `Space` → next; `ArrowLeft` → prev; `Home` / `End` → first / last.
-- **Counter:** `#currentSlide` / `#totalSlides` — **total must stay derived from DOM count** (no hardcoded slide number in JS).
-- **Progress:** `#progress` width = `(current + 1) / total * 100%`.
-
-Buttons call the same functions as the keyboard handlers.
+- **`showSlide(n)`** — updates index with wraparound, toggles `.active`.
+- **Keyboard:** `ArrowRight` / `Space` → next; `ArrowLeft` → prev; `Home` / `End` → first / last. (No on-screen counter or nav buttons.)
 
 ## Assets
 
@@ -53,6 +49,6 @@ Details for export and onboarding: see **README.md**.
 1. Duplicate a nearby slide block that matches the layout you need.
 2. Keep one `.active` on load (usually first slide + `title-slide` if applicable).
 3. Reuse existing CSS utilities (grids, cards, `.code-block`) before adding new layout systems.
-4. After structural changes, spot-check keyboard nav and counter/progress.
+4. After structural changes, spot-check keyboard nav.
 
 Project-specific AI/editor conventions: **`.cursor/rules/presentation.mdc`**.

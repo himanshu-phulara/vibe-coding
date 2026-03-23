@@ -6,6 +6,17 @@
   <title>Vibe Coding & The Tech Behind - Adobe GDC Presentation</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    /* Adobe corporate template: white canvas, left red stripe, black type */
+    :root {
+      --adobe-red: #e60000;
+      --adobe-red-dark: #c40000;
+      --bg-slide: #ffffff;
+      --text: #000000;
+      --text-muted: #707070;
+      --text-subtle: #999999;
+      --stripe-w: 14px;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -13,9 +24,9 @@
     }
 
     body {
-      font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #1a1a2e;
-      color: #ffffff;
+      font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #ffffff;
+      color: var(--text);
       overflow: hidden;
     }
 
@@ -29,11 +40,12 @@
       display: none;
       width: 100%;
       height: 100%;
-      padding: 60px 80px;
+      padding: 48px 64px 48px calc(40px + var(--stripe-w));
       position: absolute;
       top: 0;
       left: 0;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      background: var(--bg-slide);
+      border-left: var(--stripe-w) solid var(--adobe-red);
     }
 
     .slide.active {
@@ -41,78 +53,60 @@
       flex-direction: column;
     }
 
-    /* Adobe red accent */
-    .accent { color: #ff0000; }
-    .accent-bg { background: linear-gradient(135deg, #ff0000, #cc0000); }
+    .accent { color: var(--adobe-red); }
+    .accent-bg { background: var(--adobe-red); }
 
-    /* Title Slide */
+    /* Title slide — centered, white (stripe from .slide) */
     .slide.title-slide {
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
     }
 
     .slide.title-slide::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 80%, rgba(255,0,0,0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255,0,0,0.08) 0%, transparent 50%);
-      pointer-events: none;
+      display: none;
     }
 
     .title-slide h1 {
       font-size: 5rem;
       font-weight: 700;
       margin-bottom: 20px;
-      background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text);
+      -webkit-text-fill-color: var(--text);
+      background: none;
     }
 
     .title-slide h1 .vibe {
-      background: linear-gradient(135deg, #ff0000 0%, #ff6b6b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--adobe-red);
+      -webkit-text-fill-color: var(--adobe-red);
+      background: none;
     }
 
     .title-slide .subtitle {
       font-size: 1.8rem;
       font-weight: 300;
-      color: #a0a0a0;
+      color: var(--text-muted);
       margin-bottom: 60px;
     }
 
     .title-slide .presenter {
       font-size: 1.2rem;
-      color: #888;
+      color: var(--text-muted);
     }
 
+    /* Logo in header optional (hidden by default) */
     .adobe-logo {
-      position: absolute;
-      top: 40px;
-      left: 40px;
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: #ff0000;
+      display: none;
     }
 
-    /* Content Slides */
     .slide-header {
-      margin-bottom: 50px;
+      margin-bottom: 36px;
     }
 
     .slide-header h2 {
-      font-size: 2.8rem;
-      font-weight: 600;
-      color: #ffffff;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--text);
       position: relative;
       display: inline-block;
     }
@@ -124,8 +118,8 @@
       left: 0;
       width: 80px;
       height: 4px;
-      background: #ff0000;
-      border-radius: 2px;
+      background: var(--adobe-red);
+      border-radius: 1px;
     }
 
     .slide-content {
@@ -133,12 +127,14 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
+      min-height: 0;
     }
 
     .slide-content ul {
       list-style: none;
-      font-size: 1.6rem;
-      line-height: 2.2;
+      font-size: 1.5rem;
+      line-height: 2;
+      color: var(--text);
     }
 
     .slide-content ul li {
@@ -147,131 +143,134 @@
     }
 
     .slide-content ul li::before {
-      content: '▸';
+      content: '■';
       position: absolute;
       left: 0;
-      color: #ff0000;
-      font-size: 1.2rem;
+      color: var(--text);
+      font-size: 0.55rem;
+      top: 0.65em;
     }
 
     .two-column {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      gap: 48px;
     }
 
     .column h3 {
       font-size: 1.5rem;
-      color: #ff6b6b;
+      color: var(--adobe-red);
       margin-bottom: 20px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .highlight-box {
-      background: rgba(255, 0, 0, 0.1);
-      border-left: 4px solid #ff0000;
-      padding: 30px;
-      margin: 30px 0;
-      border-radius: 0 12px 12px 0;
+      background: #f5f5f5;
+      border-left: 4px solid var(--adobe-red);
+      padding: 24px 28px;
+      margin: 24px 0;
+      border-radius: 0 4px 4px 0;
     }
 
     .highlight-box p {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-style: italic;
-      color: #e0e0e0;
+      color: #333333;
     }
 
     .quote {
-      font-size: 2rem;
+      font-size: 1.85rem;
       text-align: center;
-      padding: 60px;
-      color: #e0e0e0;
+      padding: 40px 24px;
+      color: #222222;
       font-style: italic;
     }
 
     .quote-author {
       margin-top: 20px;
-      font-size: 1.2rem;
-      color: #888;
+      font-size: 1.15rem;
+      color: var(--text-muted);
       font-style: normal;
     }
 
     .code-block {
-      background: #0d1117;
-      border-radius: 12px;
-      padding: 30px;
+      background: #f8f8f8;
+      border-radius: 8px;
+      padding: 20px 24px;
       font-family: 'Source Code Pro', monospace;
-      font-size: 1.1rem;
-      line-height: 1.8;
-      margin: 20px 0;
-      border: 1px solid #30363d;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 16px 0;
+      border: 1px solid #e0e0e0;
+      color: #1a1a1a;
     }
 
-    .code-comment { color: #8b949e; }
-    .code-keyword { color: #ff7b72; }
-    .code-string { color: #a5d6ff; }
-    .code-function { color: #d2a8ff; }
+    .code-comment { color: #6a737d; }
+    .code-keyword { color: #d73a49; }
+    .code-string { color: #032f62; }
+    .code-function { color: #6f42c1; }
 
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 30px;
-      margin-top: 40px;
+      gap: 24px;
+      margin-top: 32px;
     }
 
     .tool-card {
-      background: rgba(255,255,255,0.05);
-      border-radius: 16px;
-      padding: 30px 20px;
+      background: #fafafa;
+      border-radius: 8px;
+      padding: 24px 18px;
       text-align: center;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: transform 0.3s, border-color 0.3s;
+      border: 1px solid #e8e8e8;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .tool-card:hover {
-      transform: translateY(-5px);
-      border-color: #ff0000;
+      border-color: var(--adobe-red);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     }
 
     .tool-card .icon {
-      font-size: 3rem;
-      margin-bottom: 15px;
+      font-size: 2.5rem;
+      margin-bottom: 12px;
     }
 
     .tool-card h4 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin-bottom: 8px;
+      color: var(--text);
     }
 
     .tool-card p {
-      font-size: 0.9rem;
-      color: #888;
+      font-size: 0.88rem;
+      color: var(--text-muted);
     }
 
     .stats-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      margin: 50px 0;
+      gap: 32px;
+      margin: 40px 0;
     }
 
     .stat-card {
       text-align: center;
-      padding: 40px;
-      background: rgba(255,0,0,0.05);
-      border-radius: 16px;
-      border: 1px solid rgba(255,0,0,0.2);
+      padding: 32px;
+      background: #fafafa;
+      border-radius: 8px;
+      border: 1px solid #eeeeee;
     }
 
     .stat-card .number {
-      font-size: 4rem;
+      font-size: 3.5rem;
       font-weight: 700;
-      color: #ff0000;
+      color: var(--adobe-red);
     }
 
     .stat-card .label {
-      font-size: 1.2rem;
-      color: #a0a0a0;
+      font-size: 1.1rem;
+      color: var(--text-muted);
       margin-top: 10px;
     }
 
@@ -279,7 +278,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 50px 0;
+      margin: 40px 0;
     }
 
     .workflow-step {
@@ -288,106 +287,63 @@
     }
 
     .workflow-step .step-num {
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, #ff0000, #cc0000);
+      width: 56px;
+      height: 56px;
+      background: var(--adobe-red);
+      color: #fff;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       font-weight: 700;
-      margin: 0 auto 20px;
+      margin: 0 auto 16px;
     }
 
     .workflow-step h4 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      color: var(--text);
     }
 
     .workflow-step p {
-      font-size: 1rem;
-      color: #888;
+      font-size: 0.95rem;
+      color: var(--text-muted);
     }
 
     .workflow-arrow {
-      font-size: 2rem;
-      color: #ff0000;
-      padding: 0 20px;
+      font-size: 1.75rem;
+      color: var(--adobe-red);
+      padding: 0 16px;
     }
 
     .pros-cons {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 32px;
     }
 
     .pros, .cons {
-      padding: 30px;
-      border-radius: 16px;
+      padding: 24px;
+      border-radius: 8px;
     }
 
     .pros {
-      background: rgba(0, 200, 83, 0.1);
-      border: 1px solid rgba(0, 200, 83, 0.3);
+      background: #f3faf5;
+      border: 1px solid #c8e6c9;
     }
 
     .cons {
-      background: rgba(255, 152, 0, 0.1);
-      border: 1px solid rgba(255, 152, 0, 0.3);
+      background: #fffaf5;
+      border: 1px solid #ffe0b2;
     }
 
-    .pros h3 { color: #00c853; }
-    .cons h3 { color: #ff9800; }
+    .pros h3 { color: #2e7d32; }
+    .cons h3 { color: #e65100; }
 
-    .pros ul li::before { color: #00c853; }
-    .cons ul li::before { color: #ff9800; }
+    .pros ul li::before { color: #2e7d32; }
+    .cons ul li::before { color: #e65100; }
 
-    /* Navigation */
-    .nav {
-      position: fixed;
-      bottom: 30px;
-      right: 40px;
-      display: flex;
-      gap: 15px;
-      z-index: 100;
-    }
-
-    .nav button {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 1rem;
-      transition: all 0.3s;
-    }
-
-    .nav button:hover {
-      background: #ff0000;
-      border-color: #ff0000;
-    }
-
-    .slide-counter {
-      position: fixed;
-      bottom: 40px;
-      left: 40px;
-      font-size: 1rem;
-      color: #666;
-    }
-
-    .progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 4px;
-      background: #ff0000;
-      transition: width 0.3s;
-    }
-
-    /* Thank you slide */
     .thank-you {
       justify-content: center;
       align-items: center;
@@ -395,27 +351,28 @@
     }
 
     .thank-you h2 {
-      font-size: 4rem;
-      margin-bottom: 30px;
+      font-size: 3.5rem;
+      margin-bottom: 24px;
+      color: var(--text);
     }
 
     .thank-you p {
-      font-size: 1.5rem;
-      color: #888;
+      font-size: 1.35rem;
+      color: var(--text-muted);
     }
 
     .contact-info {
-      margin-top: 50px;
-      padding: 30px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 16px;
+      margin-top: 40px;
+      padding: 24px 32px;
+      background: #f5f5f5;
+      border-radius: 8px;
       display: inline-block;
+      border: 1px solid #e8e8e8;
     }
+
   </style>
 </head>
 <body>
-  <div class="progress-bar" id="progress"></div>
-  
   <div class="presentation">
     <!-- Slide 1: Title -->
     <div class="slide title-slide active">
@@ -424,8 +381,8 @@
       <p class="subtitle">& The Tech Behind It</p>
       <p class="presenter" style="margin-bottom: 20px;">TechX Live - AI & Agentic AI Tech Talk Series</p>
       <div style="display: flex; gap: 50px; margin-top: 25px;">
-        <p style="font-size: 1.4rem; color: #a0a0a0;"><strong style="color: #fff; font-size: 1.5rem;">Himanshu Phulara</strong><br>Technical Architect</p>
-        <p style="font-size: 1.4rem; color: #a0a0a0;"><strong style="color: #fff; font-size: 1.5rem;">Mohit Malik</strong><br>Technical Architect</p>
+        <p style="font-size: 1.4rem; color: #505050;"><strong style="color: #000000; font-size: 1.5rem;">Himanshu Phulara</strong><br>Technical Architect</p>
+        <p style="font-size: 1.4rem; color: #505050;"><strong style="color: #000000; font-size: 1.5rem;">Mohit Malik</strong><br>Technical Architect</p>
       </div>
     </div>
 
@@ -466,7 +423,7 @@
             <li>Focus shifts from "how to write" to "what to build"</li>
           </ul>
           <div style="text-align: center;">
-            <img src="assets/whatisvibecoding.png" alt="Vibe Coding Concept" style="max-width: 100%; max-height: 280px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <img src="assets/whatisvibecoding.png" alt="Vibe Coding Concept" style="max-width: 100%; max-height: 280px; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
           </div>
         </div>
       </div>
@@ -527,37 +484,37 @@
     <div class="slide">
       <div class="slide-header">
         <h2>Tools of the Trade</h2>
-        <p style="color: #888; font-size: 1.1rem; margin-top: 20px;">AI tools enabling the shift from coding to guiding intelligent agents</p>
+        <p style="color: #5c5c5c; font-size: 1.1rem; margin-top: 20px;">AI tools enabling the shift from coding to guiding intelligent agents</p>
       </div>
       <div class="slide-content">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
           <div style="background: rgba(255,107,107,0.1); padding: 22px; border-radius: 14px; border: 1px solid rgba(255,107,107,0.3);">
             <h3 style="color: #ff6b6b; margin-bottom: 8px; font-size: 1.25rem;">🤖 GitHub Copilot</h3>
-            <p style="color: #aaa; font-size: 0.95rem; font-style: italic; margin-bottom: 12px;">AI coding assistant evolving toward agent workflows</p>
-            <p style="color: #ccc; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #a5d6ff;">Use cases:</strong> Boilerplate, bug fixes, test generation, PR reviews</p>
-            <p style="color: #ccc; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #00c853;">IDE:</strong> VS Code, JetBrains, Visual Studio, CLI, GitHub</p>
-            <p style="color: #888; font-size: 0.85rem; line-height: 1.5;">Real-time suggestions + Copilot Chat + emerging repo-wide agents</p>
+            <p style="color: #636363; font-size: 0.95rem; font-style: italic; margin-bottom: 12px;">AI coding assistant evolving toward agent workflows</p>
+            <p style="color: #444444; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #a5d6ff;">Use cases:</strong> Boilerplate, bug fixes, test generation, PR reviews</p>
+            <p style="color: #444444; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #00c853;">IDE:</strong> VS Code, JetBrains, Visual Studio, CLI, GitHub</p>
+            <p style="color: #5c5c5c; font-size: 0.85rem; line-height: 1.5;">Real-time suggestions + Copilot Chat + emerging repo-wide agents</p>
           </div>
           <div style="background: rgba(210,168,255,0.1); padding: 22px; border-radius: 14px; border: 1px solid rgba(210,168,255,0.3);">
             <h3 style="color: #d2a8ff; margin-bottom: 8px; font-size: 1.25rem;">⚡ Cursor</h3>
-            <p style="color: #aaa; font-size: 0.95rem; font-style: italic; margin-bottom: 12px;">AI-native IDE built for vibe coding</p>
-            <p style="color: #ccc; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #a5d6ff;">Use cases:</strong> Large refactors, multi-file edits, codebase Q&A</p>
-            <p style="color: #ccc; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #00c853;">IDE:</strong> Standalone (VS Code-based)</p>
-            <p style="color: #888; font-size: 0.85rem; line-height: 1.5;">Full repo awareness + autonomous agent workflows</p>
+            <p style="color: #636363; font-size: 0.95rem; font-style: italic; margin-bottom: 12px;">AI-native IDE built for vibe coding</p>
+            <p style="color: #444444; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #a5d6ff;">Use cases:</strong> Large refactors, multi-file edits, codebase Q&A</p>
+            <p style="color: #444444; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #00c853;">IDE:</strong> Standalone (VS Code-based)</p>
+            <p style="color: #5c5c5c; font-size: 0.85rem; line-height: 1.5;">Full repo awareness + autonomous agent workflows</p>
           </div>
           <div style="background: rgba(0,200,83,0.1); padding: 22px; border-radius: 14px; border: 1px solid rgba(0,200,83,0.3);">
             <h3 style="color: #00c853; margin-bottom: 8px; font-size: 1.25rem;">💬 ChatGPT (OpenAI) + Codex</h3>
-            <p style="color: #aaa; font-size: 0.95rem; font-style: italic; margin-bottom: 12px;">AI reasoning + execution agents</p>
-            <p style="color: #ccc; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #a5d6ff;">Use cases:</strong> Debugging, architecture design, documentation, complex tasks</p>
-            <p style="color: #ccc; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #00c853;">IDE:</strong> Web, API, VS Code plugins, Cursor integration, Codex desktop app</p>
-            <p style="color: #888; font-size: 0.85rem; line-height: 1.5;">Codex: plan → write → test → iterate (agent loop)</p>
+            <p style="color: #636363; font-size: 0.95rem; font-style: italic; margin-bottom: 12px;">AI reasoning + execution agents</p>
+            <p style="color: #444444; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #a5d6ff;">Use cases:</strong> Debugging, architecture design, documentation, complex tasks</p>
+            <p style="color: #444444; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #00c853;">IDE:</strong> Web, API, VS Code plugins, Cursor integration, Codex desktop app</p>
+            <p style="color: #5c5c5c; font-size: 0.85rem; line-height: 1.5;">Codex: plan → write → test → iterate (agent loop)</p>
           </div>
           <div style="background: rgba(165,214,255,0.1); padding: 22px; border-radius: 14px; border: 1px solid rgba(165,214,255,0.3);">
             <h3 style="color: #a5d6ff; margin-bottom: 8px; font-size: 1.25rem;">🧠 Google Gemini</h3>
-            <p style="color: #aaa; font-size: 0.95rem; font-style: italic; margin-bottom: 12px;">Multimodal AI for cloud and application development</p>
-            <p style="color: #ccc; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #a5d6ff;">Use cases:</strong> API integration, mobile apps, cloud workflows</p>
-            <p style="color: #ccc; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #00c853;">IDE:</strong> Android Studio (strong), VS Code (extensions), limited JetBrains</p>
-            <p style="color: #888; font-size: 0.85rem; line-height: 1.5;">Deep integration with Google Cloud & ecosystem</p>
+            <p style="color: #636363; font-size: 0.95rem; font-style: italic; margin-bottom: 12px;">Multimodal AI for cloud and application development</p>
+            <p style="color: #444444; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #a5d6ff;">Use cases:</strong> API integration, mobile apps, cloud workflows</p>
+            <p style="color: #444444; font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;"><strong style="color: #00c853;">IDE:</strong> Android Studio (strong), VS Code (extensions), limited JetBrains</p>
+            <p style="color: #5c5c5c; font-size: 0.85rem; line-height: 1.5;">Deep integration with Google Cloud & ecosystem</p>
           </div>
         </div>
         <div style="margin-top: 20px; text-align: center; padding: 15px; background: rgba(255,0,0,0.08); border-radius: 10px; border: 1px solid rgba(255,0,0,0.2);">
@@ -570,7 +527,7 @@
     <div class="slide">
       <div class="slide-header">
         <h2>Under the Hood: How Cursor Works</h2>
-        <p style="color: #888; font-size: 1.1rem; margin-top: 20px;">The architecture behind AI-assisted coding</p>
+        <p style="color: #5c5c5c; font-size: 1.1rem; margin-top: 20px;">The architecture behind AI-assisted coding</p>
       </div>
       <div class="slide-content">
         <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0;">
@@ -579,30 +536,30 @@
             <div style="background: rgba(165,214,255,0.15); padding: 20px 25px; border-radius: 12px; border: 2px solid #a5d6ff; text-align: center;">
               <div style="font-size: 1.8rem;">👨‍💻</div>
               <div style="font-weight: 600; margin-top: 8px;">Your Code</div>
-              <div style="font-size: 0.8rem; color: #888;">+ Prompt</div>
+              <div style="font-size: 0.8rem; color: #5c5c5c;">+ Prompt</div>
             </div>
             <div style="font-size: 1.5rem; color: #ff6b6b;">→</div>
             <div style="background: rgba(255,107,107,0.15); padding: 20px 25px; border-radius: 12px; border: 2px solid #ff6b6b; text-align: center;">
               <div style="font-size: 1.8rem;">🔍</div>
               <div style="font-weight: 600; margin-top: 8px;">Context Engine</div>
-              <div style="font-size: 0.8rem; color: #888;">RAG + Embeddings</div>
+              <div style="font-size: 0.8rem; color: #5c5c5c;">RAG + Embeddings</div>
             </div>
             <div style="font-size: 1.5rem; color: #ff6b6b;">→</div>
             <div style="background: rgba(210,168,255,0.15); padding: 20px 25px; border-radius: 12px; border: 2px solid #d2a8ff; text-align: center;">
               <div style="font-size: 1.8rem;">🧠</div>
               <div style="font-weight: 600; margin-top: 8px;">LLM API</div>
-              <div style="font-size: 0.8rem; color: #888;">GPT-4 / Claude</div>
+              <div style="font-size: 0.8rem; color: #5c5c5c;">GPT-4 / Claude</div>
             </div>
             <div style="font-size: 1.5rem; color: #ff6b6b;">→</div>
             <div style="background: rgba(0,200,83,0.15); padding: 20px 25px; border-radius: 12px; border: 2px solid #00c853; text-align: center;">
               <div style="font-size: 1.8rem;">✨</div>
               <div style="font-weight: 600; margin-top: 8px;">Generated Code</div>
-              <div style="font-size: 0.8rem; color: #888;">+ Diff View</div>
+              <div style="font-size: 0.8rem; color: #5c5c5c;">+ Diff View</div>
             </div>
           </div>
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 30px;">
-          <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+          <div style="background: rgba(0,0,0,0.04); padding: 20px; border-radius: 12px;">
             <h4 style="color: #a5d6ff; margin-bottom: 10px;">1. Context Gathering</h4>
             <ul style="font-size: 0.95rem; line-height: 1.8;">
               <li>Current file + cursor position</li>
@@ -611,7 +568,7 @@
               <li>Git history & diff context</li>
             </ul>
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+          <div style="background: rgba(0,0,0,0.04); padding: 20px; border-radius: 12px;">
             <h4 style="color: #d2a8ff; margin-bottom: 10px;">2. Prompt Construction</h4>
             <ul style="font-size: 0.95rem; line-height: 1.8;">
               <li>System prompt (rules, format)</li>
@@ -620,7 +577,7 @@
               <li>Token optimization (~128K limit)</li>
             </ul>
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px;">
+          <div style="background: rgba(0,0,0,0.04); padding: 20px; border-radius: 12px;">
             <h4 style="color: #00c853; margin-bottom: 10px;">3. Response Handling</h4>
             <ul style="font-size: 0.95rem; line-height: 1.8;">
               <li>Stream tokens in real-time</li>
@@ -642,7 +599,7 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
           <div style="background: rgba(255,107,107,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,107,107,0.3);">
             <h3 style="color: #ff6b6b; margin-bottom: 15px;">🧠 Large Language Models</h3>
-            <p style="color: #ccc; line-height: 1.7;">Foundation models (GPT-4, Claude, Gemini) trained on billions of code samples. They predict the next token based on context — essentially very sophisticated autocomplete.</p>
+            <p style="color: #444444; line-height: 1.7;">Foundation models (GPT-4, Claude, Gemini) trained on billions of code samples. They predict the next token based on context — essentially very sophisticated autocomplete.</p>
             <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
               <span class="code-comment">Input:</span> <span class="code-string">"function add(a, b) { return"</span><br>
               <span class="code-comment">Model predicts:</span> <span class="code-keyword">a + b; }</span>
@@ -650,7 +607,7 @@
           </div>
           <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.3);">
             <h3 style="color: #a5d6ff; margin-bottom: 15px;">📊 Embeddings & Vector Search</h3>
-            <p style="color: #ccc; line-height: 1.7;">Code is converted to numerical vectors capturing semantic meaning. Similar code clusters together, enabling "find code that does X" without keyword matching.</p>
+            <p style="color: #444444; line-height: 1.7;">Code is converted to numerical vectors capturing semantic meaning. Similar code clusters together, enabling "find code that does X" without keyword matching.</p>
             <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
               <span class="code-string">"parseJSON"</span> → <span class="code-keyword">[0.2, -0.5, 0.8, ...]</span><br>
               <span class="code-string">"decodeJSON"</span> → <span class="code-keyword">[0.21, -0.48, 0.79, ...]</span> <span class="code-comment">// Similar!</span>
@@ -658,7 +615,7 @@
           </div>
           <div style="background: rgba(0,200,83,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(0,200,83,0.3);">
             <h3 style="color: #00c853; margin-bottom: 15px;">🔄 RAG (Retrieval-Augmented Generation)</h3>
-            <p style="color: #ccc; line-height: 1.7;">Instead of fine-tuning, RAG retrieves relevant code from YOUR codebase at query time and injects it into the prompt. This is how Cursor "knows" your patterns.</p>
+            <p style="color: #444444; line-height: 1.7;">Instead of fine-tuning, RAG retrieves relevant code from YOUR codebase at query time and injects it into the prompt. This is how Cursor "knows" your patterns.</p>
             <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
               <span class="code-comment">Query:</span> <span class="code-string">"Add error handling"</span><br>
               <span class="code-comment">RAG finds:</span> <span class="code-keyword">your existing ErrorBoundary.tsx</span>
@@ -666,7 +623,7 @@
           </div>
           <div style="background: rgba(210,168,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(210,168,255,0.3);">
             <h3 style="color: #d2a8ff; margin-bottom: 15px;">🌊 Streaming & Token Windows</h3>
-            <p style="color: #ccc; line-height: 1.7;">Responses stream token-by-token for instant feedback. Context windows (8K → 128K → 1M) determine how much code the model can "see" at once.</p>
+            <p style="color: #444444; line-height: 1.7;">Responses stream token-by-token for instant feedback. Context windows (8K → 128K → 1M) determine how much code the model can "see" at once.</p>
             <div class="code-block" style="font-size: 0.75rem; padding: 10px; margin-top: 15px;">
               <span class="code-comment">GPT-4:</span> <span class="code-keyword">128K tokens</span> <span class="code-comment">≈ 100K words</span><br>
               <span class="code-comment">Claude:</span> <span class="code-keyword">200K tokens</span> <span class="code-comment">≈ 150K words</span>
@@ -721,7 +678,7 @@
       </div>
       <div class="slide-content" style="display: flex; justify-content: center; align-items: center;">
         <div style="text-align: center;">
-          <img src="assets/requestFlowArchitecture.png" alt="Request Flow Architecture" style="max-width: 100%; max-height: 600px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+          <img src="assets/requestFlowArchitecture.png" alt="Request Flow Architecture" style="max-width: 100%; max-height: 600px; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.1);">
         </div>
       </div>
     </div>
@@ -772,7 +729,7 @@
                 </div>
               </div>
             </div>
-            <p style="color: #888; font-size: 0.95rem; margin-top: 15px; text-align: center;">
+            <p style="color: #5c5c5c; font-size: 0.95rem; margin-top: 15px; text-align: center;">
               Example: "Add authentication to my Express app" → Agent reads routes, adds middleware, creates auth files, installs packages, tests it
             </p>
           </div>
@@ -784,7 +741,7 @@
     <div class="slide">
       <div class="slide-header">
         <h2>How Agents Work: The ReAct Pattern</h2>
-        <p style="color: #888; font-size: 1.1rem; margin-top: 20px;">Reasoning + Acting in a loop</p>
+        <p style="color: #5c5c5c; font-size: 1.1rem; margin-top: 20px;">Reasoning + Acting in a loop</p>
       </div>
       <div class="slide-content">
         <div style="display: flex; justify-content: center; margin: 20px 0;">
@@ -793,45 +750,45 @@
             <div style="background: rgba(255,107,107,0.15); padding: 25px 30px; border-radius: 16px; border: 2px solid #ff6b6b; text-align: center; min-width: 140px;">
               <div style="font-size: 2rem;">🎯</div>
               <div style="font-weight: 600; margin-top: 10px;">Goal</div>
-              <div style="font-size: 0.85rem; color: #888;">"Add user auth"</div>
+              <div style="font-size: 0.85rem; color: #5c5c5c;">"Add user auth"</div>
             </div>
-            <div style="font-size: 2rem; color: #666;">→</div>
+            <div style="font-size: 2rem; color: #444444;">→</div>
             <div style="background: rgba(210,168,255,0.15); padding: 25px 30px; border-radius: 16px; border: 2px solid #d2a8ff; text-align: center; min-width: 140px;">
               <div style="font-size: 2rem;">🤔</div>
               <div style="font-weight: 600; margin-top: 10px;">Think</div>
-              <div style="font-size: 0.85rem; color: #888;">Plan next step</div>
+              <div style="font-size: 0.85rem; color: #5c5c5c;">Plan next step</div>
             </div>
-            <div style="font-size: 2rem; color: #666;">→</div>
+            <div style="font-size: 2rem; color: #444444;">→</div>
             <div style="background: rgba(165,214,255,0.15); padding: 25px 30px; border-radius: 16px; border: 2px solid #a5d6ff; text-align: center; min-width: 140px;">
               <div style="font-size: 2rem;">🔧</div>
               <div style="font-weight: 600; margin-top: 10px;">Act</div>
-              <div style="font-size: 0.85rem; color: #888;">Use a tool</div>
+              <div style="font-size: 0.85rem; color: #5c5c5c;">Use a tool</div>
             </div>
-            <div style="font-size: 2rem; color: #666;">→</div>
+            <div style="font-size: 2rem; color: #444444;">→</div>
             <div style="background: rgba(255,193,7,0.15); padding: 25px 30px; border-radius: 16px; border: 2px solid #ffc107; text-align: center; min-width: 140px;">
               <div style="font-size: 2rem;">👀</div>
               <div style="font-weight: 600; margin-top: 10px;">Observe</div>
-              <div style="font-size: 0.85rem; color: #888;">Check result</div>
+              <div style="font-size: 0.85rem; color: #5c5c5c;">Check result</div>
             </div>
-            <div style="font-size: 2rem; color: #666;">↺</div>
+            <div style="font-size: 2rem; color: #444444;">↺</div>
           </div>
         </div>
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 30px;">
-          <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; text-align: center;">
+          <div style="background: rgba(0,0,0,0.04); padding: 20px; border-radius: 12px; text-align: center;">
             <h4 style="color: #ff6b6b; margin-bottom: 10px;">📖 Read File</h4>
-            <p style="font-size: 0.9rem; color: #888;">Examine existing code, configs, dependencies</p>
+            <p style="font-size: 0.9rem; color: #5c5c5c;">Examine existing code, configs, dependencies</p>
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; text-align: center;">
+          <div style="background: rgba(0,0,0,0.04); padding: 20px; border-radius: 12px; text-align: center;">
             <h4 style="color: #a5d6ff; margin-bottom: 10px;">✏️ Edit File</h4>
-            <p style="font-size: 0.9rem; color: #888;">Make targeted changes with diff view</p>
+            <p style="font-size: 0.9rem; color: #5c5c5c;">Make targeted changes with diff view</p>
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; text-align: center;">
+          <div style="background: rgba(0,0,0,0.04); padding: 20px; border-radius: 12px; text-align: center;">
             <h4 style="color: #00c853; margin-bottom: 10px;">💻 Run Command</h4>
-            <p style="font-size: 0.9rem; color: #888;">Execute npm, git, tests in terminal</p>
+            <p style="font-size: 0.9rem; color: #5c5c5c;">Execute npm, git, tests in terminal</p>
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; text-align: center;">
+          <div style="background: rgba(0,0,0,0.04); padding: 20px; border-radius: 12px; text-align: center;">
             <h4 style="color: #d2a8ff; margin-bottom: 10px;">🔍 Search Code</h4>
-            <p style="font-size: 0.9rem; color: #888;">Find patterns across codebase</p>
+            <p style="font-size: 0.9rem; color: #5c5c5c;">Find patterns across codebase</p>
           </div>
         </div>
         <div class="highlight-box" style="margin-top: 25px; background: rgba(210,168,255,0.05); border-color: rgba(210,168,255,0.3);">
@@ -853,19 +810,19 @@
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 25px;">
           <div style="background: rgba(255,193,7,0.1); padding: 18px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,193,7,0.2);">
             <h4 style="color: #ffc107; margin-bottom: 8px;">1. User Prompt</h4>
-            <p style="font-size: 0.85rem; color: #aaa;">"Add pagination to API"</p>
+            <p style="font-size: 0.85rem; color: #636363;">"Add pagination to API"</p>
           </div>
           <div style="background: rgba(255,193,7,0.1); padding: 18px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,193,7,0.2);">
             <h4 style="color: #ffc107; margin-bottom: 8px;">2. MCP Request</h4>
-            <p style="font-size: 0.85rem; color: #aaa;">Tool call via stdio/HTTP</p>
+            <p style="font-size: 0.85rem; color: #636363;">Tool call via stdio/HTTP</p>
           </div>
           <div style="background: rgba(255,193,7,0.1); padding: 18px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,193,7,0.2);">
             <h4 style="color: #ffc107; margin-bottom: 8px;">3. Server Response</h4>
-            <p style="font-size: 0.85rem; color: #aaa;">Structured data injected</p>
+            <p style="font-size: 0.85rem; color: #636363;">Structured data injected</p>
           </div>
           <div style="background: rgba(255,193,7,0.1); padding: 18px; border-radius: 12px; text-align: center; border: 1px solid rgba(255,193,7,0.2);">
             <h4 style="color: #ffc107; margin-bottom: 8px;">4. Final Output</h4>
-            <p style="font-size: 0.85rem; color: #aaa;">Multi-file patch/edit</p>
+            <p style="font-size: 0.85rem; color: #636363;">Multi-file patch/edit</p>
           </div>
         </div>
         <div class="highlight-box" style="margin-top: 20px; background: rgba(255,193,7,0.05); border-color: rgba(255,193,7,0.3);">
@@ -878,7 +835,7 @@
     <div class="slide">
       <div class="slide-header">
         <h2>Example: From Prompt to Code</h2>
-        <p style="color: #888; font-size: 0.95rem; margin-top: 10px;">Good Prompt → Better Prompt</p>
+        <p style="color: #5c5c5c; font-size: 0.95rem; margin-top: 10px;">Good Prompt → Better Prompt</p>
       </div>
       <div class="slide-content" style="padding-top: 5px;">
         <!-- Row 1: Good Prompt -->
@@ -969,7 +926,7 @@ Also include unit tests using Jest (TS), covering normal cases and edge cases (e
               <span class="code-string">@src/utils/api.ts</span> <span class="code-string">@types/user.ts</span><br>
               <span class="code-comment">Refactor this to use our existing error handling pattern</span>
             </div>
-            <p style="color: #888; font-size: 0.9rem;">Reference specific files so AI understands your patterns</p>
+            <p style="color: #5c5c5c; font-size: 0.9rem;">Reference specific files so AI understands your patterns</p>
           </div>
           <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
             <h3 style="color: #a5d6ff; margin-bottom: 12px;">🧠 Chain-of-Thought</h3>
@@ -978,7 +935,7 @@ Also include unit tests using Jest (TS), covering normal cases and edge cases (e
               <span class="code-comment">then identify the bottleneck,</span><br>
               <span class="code-comment">then propose an optimized solution.</span>
             </div>
-            <p style="color: #888; font-size: 0.9rem;">Guide AI through reasoning steps for complex problems</p>
+            <p style="color: #5c5c5c; font-size: 0.9rem;">Guide AI through reasoning steps for complex problems</p>
           </div>
           <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
             <h3 style="color: #a5d6ff; margin-bottom: 12px;">📋 Cursor Rules / .cursorrules</h3>
@@ -988,7 +945,7 @@ Also include unit tests using Jest (TS), covering normal cases and edge cases (e
               <span class="code-string">Prefer functional components</span><br>
               <span class="code-string">Follow our error boundary pattern</span>
             </div>
-            <p style="color: #888; font-size: 0.9rem;">Persistent project-level instructions AI always follows</p>
+            <p style="color: #5c5c5c; font-size: 0.9rem;">Persistent project-level instructions AI always follows</p>
           </div>
           <div style="background: rgba(165,214,255,0.1); padding: 25px; border-radius: 12px; border: 1px solid rgba(165,214,255,0.2);">
             <h3 style="color: #a5d6ff; margin-bottom: 12px;">🔄 Multi-Turn Refinement</h3>
@@ -997,7 +954,7 @@ Also include unit tests using Jest (TS), covering normal cases and edge cases (e
               <span class="code-keyword">Turn 2:</span> <span class="code-string">Add error handling</span><br>
               <span class="code-keyword">Turn 3:</span> <span class="code-string">Optimize for re-renders</span>
             </div>
-            <p style="color: #888; font-size: 0.9rem;">Build complexity incrementally, not all at once</p>
+            <p style="color: #5c5c5c; font-size: 0.9rem;">Build complexity incrementally, not all at once</p>
           </div>
         </div>
       </div>
@@ -1066,8 +1023,8 @@ Also include unit tests using Jest (TS), covering normal cases and edge cases (e
           </div>
         </div>
         <!-- Footer -->
-        <div style="text-align: center; margin-top: 20px; padding: 12px 20px; background: rgba(255,255,255,0.03); border-radius: 8px;">
-          <p style="color: #a5d6ff; font-size: 0.95rem; margin: 0;">From <strong>writing code</strong> → to <strong>steering outcomes</strong></p>
+        <div style="text-align: center; margin-top: 20px; padding: 12px 20px; background: #f0f0f0; border-radius: 8px; border: 1px solid #e0e0e0;">
+          <p style="color: #333333; font-size: 0.95rem; margin: 0;">From <strong>writing code</strong> → to <strong>steering outcomes</strong></p>
         </div>
       </div>
     </div>
@@ -1115,19 +1072,19 @@ Also include unit tests using Jest (TS), covering normal cases and edge cases (e
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
           <div class="cons" style="background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.3);">
             <h3 style="color: #ff6b6b;">🚫 Complex State Machines</h3>
-            <p style="color: #aaa; margin-top: 10px;">AI struggles with intricate state transitions, race conditions, and multi-step workflows. Often generates incomplete or buggy state logic.</p>
+            <p style="color: #636363; margin-top: 10px;">AI struggles with intricate state transitions, race conditions, and multi-step workflows. Often generates incomplete or buggy state logic.</p>
           </div>
           <div class="cons" style="background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.3);">
             <h3 style="color: #ff6b6b;">🐢 Performance-Critical Code</h3>
-            <p style="color: #aaa; margin-top: 10px;">AI frequently writes O(n²) when O(n) exists. Misses caching opportunities, creates memory leaks, ignores algorithmic efficiency.</p>
+            <p style="color: #636363; margin-top: 10px;">AI frequently writes O(n²) when O(n) exists. Misses caching opportunities, creates memory leaks, ignores algorithmic efficiency.</p>
           </div>
           <div class="cons" style="background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.3);">
             <h3 style="color: #ff6b6b;">🏢 Deep Domain Context</h3>
-            <p style="color: #aaa; margin-top: 10px;">AI doesn't know your proprietary systems, internal APIs, business rules, or why that "weird" legacy code exists. Context windows have limits.</p>
+            <p style="color: #636363; margin-top: 10px;">AI doesn't know your proprietary systems, internal APIs, business rules, or why that "weird" legacy code exists. Context windows have limits.</p>
           </div>
           <div class="cons" style="background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.3);">
             <h3 style="color: #ff6b6b;">🏗️ Multi-File Architecture</h3>
-            <p style="color: #aaa; margin-top: 10px;">Large refactors across many files often fail. AI loses track of dependencies, creates circular imports, breaks existing contracts.</p>
+            <p style="color: #636363; margin-top: 10px;">Large refactors across many files often fail. AI loses track of dependencies, creates circular imports, breaks existing contracts.</p>
           </div>
         </div>
         <div class="highlight-box" style="margin-top: 30px; background: rgba(255,107,107,0.05); border-color: rgba(255,107,107,0.2);">
@@ -1268,33 +1225,20 @@ Also include unit tests using Jest (TS), covering normal cases and edge cases (e
       <h2>Questions & Discussion</h2>
       <p>Let's explore this together</p>
       <div class="contact-info">
-        <p style="font-size: 1.2rem; color: #888;">Thank you for your time!</p>
+        <p style="font-size: 1.2rem; color: #505050;">Thank you for your time!</p>
       </div>
     </div>
-  </div>
-
-  <div class="slide-counter">
-    <span id="currentSlide">1</span> / <span id="totalSlides">23</span>
-  </div>
-
-  <div class="nav">
-    <button onclick="prevSlide()">← Previous</button>
-    <button onclick="nextSlide()">Next →</button>
   </div>
 
   <script>
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
     const totalSlides = slides.length;
-    
-    document.getElementById('totalSlides').textContent = totalSlides;
 
     function showSlide(n) {
       slides[currentSlide].classList.remove('active');
       currentSlide = (n + totalSlides) % totalSlides;
       slides[currentSlide].classList.add('active');
-      document.getElementById('currentSlide').textContent = currentSlide + 1;
-      document.getElementById('progress').style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
     }
 
     function nextSlide() { showSlide(currentSlide + 1); }

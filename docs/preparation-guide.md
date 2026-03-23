@@ -4,6 +4,7 @@
 
 ### Technical Setup
 - [ ] Open `presentation.html` in Chrome (best compatibility)
+- [ ] If you’re doing a **live “how I built this deck”** segment: follow [live-demo-prompts-with-content.md](live-demo-prompts-with-content.md) (iterations + sample prompts); use a fresh file or branch so you’re not fighting the production deck
 - [ ] Test keyboard navigation (→ / ← / Space)
 - [ ] Test on the actual display/projector you'll use
 - [ ] Check font rendering on large screen
@@ -210,8 +211,7 @@ Repository layout (paths relative to repo root):
 ### How to Present
 1. Open `presentation.html` in Chrome (from repo root)
 2. Press F11 (or Cmd+Shift+F on Mac) for fullscreen
-3. Use → / ← / Space to navigate
-4. Slide counter shows at bottom left
+3. Use → / ← / Space to navigate (no on-screen counter or buttons)
 
 ---
 
